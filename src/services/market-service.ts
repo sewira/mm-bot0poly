@@ -23,6 +23,7 @@ import type { UnifiedCache } from '../core/unified-cache.js';
 import { CACHE_TTL } from '../core/unified-cache.js';
 import { RateLimiter, ApiType } from '../core/rate-limiter.js';
 import { PolymarketError, ErrorCode } from '../core/errors.js';
+import { categoryFromTags } from '../utils/fee-utils.js';
 import type {
   UnifiedMarket,
   MarketToken as UnifiedMarketToken,
@@ -1532,6 +1533,8 @@ export class MarketService {
       closed: clob.closed,
       acceptingOrders: clob.acceptingOrders,
       endDate: clob.endDateIso ? new Date(clob.endDateIso) : new Date(),
+      tags: gamma.tags,
+      feeCategory: categoryFromTags(gamma.tags),
       source: 'merged',
     };
   }
@@ -1561,6 +1564,8 @@ export class MarketService {
       closed: gamma.closed,
       acceptingOrders: !gamma.closed,
       endDate: gamma.endDate,
+      tags: gamma.tags,
+      feeCategory: categoryFromTags(gamma.tags),
       source: 'gamma',
     };
   }

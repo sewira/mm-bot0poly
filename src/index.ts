@@ -373,6 +373,21 @@ export {
 } from './utils/price-utils.js';
 export type { TickSize } from './utils/price-utils.js';
 
+// Fee Utilities
+export {
+  calculateTakerFee,
+  calculateArbTakerFees,
+  estimateMakerRebate,
+  categoryFromTags,
+  TAKER_FEE_RATES,
+  MAKER_REBATE_SHARES,
+} from './utils/fee-utils.js';
+export type { FeeCategory } from './utils/fee-utils.js';
+
+// Market Making Service
+export { MarketMakingService } from './services/market-making-service.js';
+export type { MarketMakingConfig, MMMarketState } from './services/market-making-service.js';
+
 // NOTE: MCP tools have been moved to @catalyst-team/poly-mcp package
 // See packages/poly-mcp/
 

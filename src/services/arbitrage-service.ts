@@ -32,6 +32,7 @@ import { GammaApiClient } from '../clients/gamma-api.js';
 import { RateLimiter } from '../core/rate-limiter.js';
 import { createUnifiedCache } from '../core/unified-cache.js';
 import { getEffectivePrices } from '../utils/price-utils.js';
+import { calculateArbTakerFees, categoryFromTags, type FeeCategory } from '../utils/fee-utils.js';
 import type { BookUpdate } from '../core/types.js';
 
 // ===== Types =====
@@ -47,6 +48,8 @@ export interface ArbitrageMarketConfig {
   noTokenId: string;
   /** Outcome names [YES, NO] */
   outcomes?: [string, string];
+  /** Fee category for taker fee calculation */
+  feeCategory?: string;
 }
 
 export interface ArbitrageServiceConfig {
@@ -177,6 +180,8 @@ export interface ScanResult {
   score: number;
   /** Description */
   description: string;
+  /** Fee category for taker fee calculation */
+  feeCategory?: string;
 }
 
 export interface OrderbookState {
@@ -501,11 +506,22 @@ export class ArbitrageService extends EventEmitter {
     // Calculate effective prices
     const effective = getEffectivePrices(yesBestAsk, yesBestBid, noBestAsk, noBestBid);
 
-    // Check for arbitrage
+    // Check for arbitrage (raw, pre-fee)
     const longCost = effective.effectiveBuyYes + effective.effectiveBuyNo;
-    const longProfit = 1 - longCost;
+    const longProfitRaw = 1 - longCost;
     const shortRevenue = effective.effectiveSellYes + effective.effectiveSellNo;
-    const shortProfit = shortRevenue - 1;
+    const shortProfitRaw = shortRevenue - 1;
+
+    // Deduct taker fees (both legs) to get post-fee profit per share
+    const category = (this.market?.feeCategory as FeeCategory) ?? 'other';
+    const feePerShareLong = calculateArbTakerFees(
+      1, effective.effectiveBuyYes, effective.effectiveBuyNo, category,
+    );
+    const feePerShareShort = calculateArbTakerFees(
+      1, effective.effectiveSellYes, effective.effectiveSellNo, category,
+    );
+    const longProfit = longProfitRaw - feePerShareLong;
+    const shortProfit = shortProfitRaw - feePerShareShort;
 
     // Calculate sizes with safety factor to prevent partial fills
     // Use min of both sides * safety factor to ensure both orders can fill
@@ -515,7 +531,7 @@ export class ArbitrageService extends EventEmitter {
     const heldPairs = Math.min(this.balance.yesTokens, this.balance.noTokens);
     const balanceLongSize = longCost > 0 ? this.balance.usdc / longCost : 0;
 
-    // Check long arb
+    // Check long arb (post-fee)
     if (longProfit > this.config.profitThreshold) {
       const maxSize = Math.min(orderbookLongSize, balanceLongSize * safetyFactor, this.config.maxTradeSize);
       if (maxSize >= this.config.minTradeSize) {
@@ -533,13 +549,13 @@ export class ArbitrageService extends EventEmitter {
           maxBalanceSize: balanceLongSize,
           recommendedSize: maxSize,
           estimatedProfit: longProfit * maxSize,
-          description: `Buy YES @ ${effective.effectiveBuyYes.toFixed(4)} + NO @ ${effective.effectiveBuyNo.toFixed(4)}, Merge for $1`,
+          description: `Buy YES @ ${effective.effectiveBuyYes.toFixed(4)} + NO @ ${effective.effectiveBuyNo.toFixed(4)}, Merge for $1 (fee: ${(feePerShareLong * 100).toFixed(2)}%/sh)`,
           timestamp: Date.now(),
         };
       }
     }
 
-    // Check short arb
+    // Check short arb (post-fee)
     if (shortProfit > this.config.profitThreshold) {
       const maxSize = Math.min(orderbookShortSize, heldPairs, this.config.maxTradeSize);
       if (maxSize >= this.config.minTradeSize && heldPairs >= this.config.minTokenReserve) {
@@ -557,7 +573,7 @@ export class ArbitrageService extends EventEmitter {
           maxBalanceSize: heldPairs,
           recommendedSize: maxSize,
           estimatedProfit: shortProfit * maxSize,
-          description: `Sell YES @ ${effective.effectiveSellYes.toFixed(4)} + NO @ ${effective.effectiveSellNo.toFixed(4)}`,
+          description: `Sell YES @ ${effective.effectiveSellYes.toFixed(4)} + NO @ ${effective.effectiveSellNo.toFixed(4)} (fee: ${(feePerShareShort * 100).toFixed(2)}%/sh)`,
           timestamp: Date.now(),
         };
       }
@@ -1733,6 +1749,7 @@ export class ArbitrageService extends EventEmitter {
           yesTokenId: yesToken.tokenId,
           noTokenId: noToken.tokenId,
           outcomes: gammaMarket.outcomes as [string, string],
+          feeCategory: categoryFromTags(gammaMarket.tags),
         };
 
         const longCost = effectivePrices.effectiveBuyYes + effectivePrices.effectiveBuyNo;
@@ -1764,6 +1781,7 @@ export class ArbitrageService extends EventEmitter {
           availableSize,
           score,
           description,
+          feeCategory: categoryFromTags(gammaMarket.tags),
         });
       } catch (error) {
         // Skip markets with errors

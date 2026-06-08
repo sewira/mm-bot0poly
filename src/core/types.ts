@@ -446,6 +446,10 @@ export interface UnifiedMarket {
   acceptingOrders: boolean;
   /** Market end date */
   endDate: Date;
+  /** Category tags from Gamma API */
+  tags?: string[];
+  /** Fee category derived from tags (for taker fee calculation) */
+  feeCategory?: string;
   /** Data source indicator */
   source: 'gamma' | 'clob' | 'merged';
 }

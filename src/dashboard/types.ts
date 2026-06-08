@@ -77,6 +77,26 @@ export interface BotState {
   // Smart Money signals
   smartMoneySignals: SmartMoneySignal[];
 
+  // Market Making
+  marketMaking: {
+    status: 'idle' | 'scanning' | 'quoting' | 'stopped';
+    marketsQuoted: number;
+    totalFills: number;
+    totalRequotes: number;
+    realizedSpreadPnL: number;
+    modeledRebateIncome: number;
+    grossExposureUsd: number;
+    markets: Array<{
+      name: string;
+      mid: number;
+      inventory: number;
+      bidPrice: number;
+      askPrice: number;
+      rollingDriftBps: number;
+      isBlacklisted: boolean;
+    }>;
+  };
+
   // Paper Trading (Dry Run)
   paper?: {
     balance: number;
@@ -150,6 +170,9 @@ export interface BotConfig {
     coins: readonly string[];
   };
   directTrading: {
+    enabled: boolean;
+  };
+  marketMaking: {
     enabled: boolean;
   };
   binance: {

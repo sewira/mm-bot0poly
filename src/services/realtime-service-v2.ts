@@ -14,6 +14,9 @@
  */
 
 import { EventEmitter } from 'events';
+import { createWriteStream, mkdirSync, type WriteStream } from 'fs';
+import { join } from 'path';
+import WebSocket from 'isomorphic-ws';
 import {
   RealTimeDataClient,
   type Message,
@@ -21,6 +24,9 @@ import {
   ConnectionStatus,
 } from '@polymarket/real-time-data-client';
 import type { PriceUpdate, BookUpdate, Orderbook, OrderbookLevel } from '../core/types.js';
+
+const MARKET_CHANNEL_URL = 'wss://ws-subscriptions-clob.polymarket.com/ws/market';
+const MARKET_CHANNEL_PING_INTERVAL = 10000; // 10s per docs
 
 // ============================================================================
 // Types
@@ -34,6 +40,9 @@ export interface RealtimeServiceConfig {
   /** Enable debug logging (default: false) */
   debug?: boolean;
 }
+
+/** Topics recorded for backtesting */
+const RECORDED_TOPICS = ['clob_market', 'activity', 'crypto_prices', 'crypto_prices_chainlink'];
 
 // Market data types
 /**
@@ -262,10 +271,25 @@ export class RealtimeServiceV2 extends EventEmitter {
   // Store subscription messages for reconnection
   private subscriptionMessages: Map<string, { subscriptions: Array<{ topic: string; type: string; filters?: string; clob_auth?: ClobApiKeyCreds }> }> = new Map();
 
+  // Market Channel (separate WebSocket for orderbook data)
+  private marketWs: WebSocket | null = null;
+  private marketWsConnected = false;
+  private marketWsPingTimer: ReturnType<typeof setInterval> | null = null;
+  private marketWsReconnectTimer: ReturnType<typeof setTimeout> | null = null;
+  private marketWsStalenessTimer: ReturnType<typeof setInterval> | null = null;
+  private marketWsLastDataTime = 0;
+  private marketWsSubscribedTokens: Set<string> = new Set();
+  private marketWsReconnectAttempts = 0;
+
   // Caches
   private priceCache: Map<string, PriceUpdate> = new Map();
   private bookCache: Map<string, OrderbookSnapshot> = new Map();
   private lastTradeCache: Map<string, LastTradeInfo> = new Map();
+
+  // Recording
+  private recordingStream: WriteStream | null = null;
+  private recordingDir: string = '';
+  private recordingDate: string = '';
 
   constructor(config: RealtimeServiceConfig = {}) {
     super();
@@ -305,6 +329,7 @@ export class RealtimeServiceV2 extends EventEmitter {
    * Disconnect from WebSocket server
    */
   disconnect(): void {
+    this.stopRecording();
     if (this.client) {
       this.client.disconnect();
       this.client = null;
@@ -312,6 +337,7 @@ export class RealtimeServiceV2 extends EventEmitter {
       this.subscriptions.clear();
       this.subscriptionMessages.clear();  // Clear reconnection list
     }
+    this.disconnectMarketChannel();
   }
 
   /**
@@ -319,6 +345,225 @@ export class RealtimeServiceV2 extends EventEmitter {
    */
   isConnected(): boolean {
     return this.connected;
+  }
+
+  // ============================================================================
+  // Market Channel WebSocket (orderbook data)
+  // Separate connection to wss://ws-subscriptions-clob.polymarket.com/ws/market
+  // RTDS no longer supports clob_market topics.
+  // ============================================================================
+
+  private connectMarketChannel(): void {
+    if (this.marketWs) return;
+
+    this.log('Connecting to Market Channel...');
+    const ws = new WebSocket(MARKET_CHANNEL_URL);
+
+    ws.onopen = () => {
+      this.log('Market Channel connected');
+      this.marketWsConnected = true;
+      this.marketWsReconnectAttempts = 0;
+      this.marketWsLastDataTime = Date.now();
+
+      // Start PING heartbeat (every 10s per docs)
+      this.marketWsPingTimer = setInterval(() => {
+        if (ws.readyState === WebSocket.OPEN) {
+          ws.send('PING');
+        }
+      }, MARKET_CHANNEL_PING_INTERVAL);
+
+      // Start data staleness watchdog (check every 30s, reconnect if no data in 60s)
+      this.marketWsStalenessTimer = setInterval(() => {
+        const silenceMs = Date.now() - this.marketWsLastDataTime;
+        if (silenceMs > 60000 && this.marketWsConnected) {
+          this.log(`Market Channel data stale (${(silenceMs / 1000).toFixed(0)}s silence), forcing reconnect`);
+          ws.close(4000, 'data staleness');
+        }
+      }, 30000);
+
+      // Re-subscribe to all tracked tokens
+      if (this.marketWsSubscribedTokens.size > 0) {
+        this.sendMarketChannelSubscription(Array.from(this.marketWsSubscribedTokens));
+      }
+
+      this.emit('marketChannelConnected');
+    };
+
+    ws.onmessage = (event: WebSocket.MessageEvent) => {
+      const data = typeof event.data === 'string' ? event.data : event.data.toString();
+      if (data === 'PONG' || data.length === 0) return;
+
+      this.marketWsLastDataTime = Date.now();
+
+      try {
+        const msg = JSON.parse(data);
+
+        // Skip error responses from server
+        if (msg.statusCode || msg.body) {
+          this.log(`Market Channel server message: ${msg.body?.message || JSON.stringify(msg)}`);
+          return;
+        }
+
+        this.handleMarketChannelMessage(msg);
+      } catch {
+        // Ignore parse errors (PONG, etc.)
+      }
+    };
+
+    ws.onclose = (event: WebSocket.CloseEvent) => {
+      const code = event.code ?? 0;
+      const reason = event.reason ?? '';
+      this.log(`Market Channel disconnected (code: ${code}${reason ? `, reason: ${reason}` : ''})`);
+      this.marketWsConnected = false;
+      this.clearMarketChannelTimers();
+      this.marketWs = null;
+
+      // Auto-reconnect with capped exponential backoff (3s, 6s, 12s, max 30s)
+      if (this.config.autoReconnect && this.marketWsSubscribedTokens.size > 0) {
+        this.marketWsReconnectAttempts++;
+        const delay = Math.min(3000 * Math.pow(2, this.marketWsReconnectAttempts - 1), 30000);
+        this.log(`Market Channel reconnecting in ${(delay / 1000).toFixed(0)}s (attempt ${this.marketWsReconnectAttempts})`);
+        this.marketWsReconnectTimer = setTimeout(() => {
+          this.connectMarketChannel();
+        }, delay);
+      }
+    };
+
+    ws.onerror = (err: WebSocket.ErrorEvent) => {
+      this.log(`Market Channel error: ${err.message || 'unknown'}`);
+    };
+
+    this.marketWs = ws;
+  }
+
+  private disconnectMarketChannel(): void {
+    this.clearMarketChannelTimers();
+    if (this.marketWs) {
+      this.marketWs.onclose = null; // Prevent auto-reconnect
+      this.marketWs.close();
+      this.marketWs = null;
+      this.marketWsConnected = false;
+    }
+    this.marketWsSubscribedTokens.clear();
+  }
+
+  private clearMarketChannelTimers(): void {
+    if (this.marketWsPingTimer) {
+      clearInterval(this.marketWsPingTimer);
+      this.marketWsPingTimer = null;
+    }
+    if (this.marketWsReconnectTimer) {
+      clearTimeout(this.marketWsReconnectTimer);
+      this.marketWsReconnectTimer = null;
+    }
+    if (this.marketWsStalenessTimer) {
+      clearInterval(this.marketWsStalenessTimer);
+      this.marketWsStalenessTimer = null;
+    }
+  }
+
+  private sendMarketChannelSubscription(tokenIds: string[]): void {
+    if (!this.marketWs || this.marketWs.readyState !== WebSocket.OPEN) {
+      this.log('Market Channel not open, cannot subscribe');
+      return;
+    }
+
+    const msg = {
+      assets_ids: tokenIds,
+      type: 'market',
+      custom_feature_enabled: true,
+    };
+    this.marketWs.send(JSON.stringify(msg));
+    this.log(`Market Channel: subscribed to ${tokenIds.length} token(s)`);
+  }
+
+  private handleMarketChannelMessage(msg: Record<string, unknown>): void {
+    const eventType = msg.event_type as string;
+    if (!eventType) return;
+
+    const timestamp = this.normalizeTimestamp(msg.timestamp) || Date.now();
+
+    // Record if recording is enabled
+    if (this.recordingStream) {
+      this.recordEvent({
+        topic: 'clob_market',
+        type: eventType,
+        payload: msg,
+        timestamp,
+      } as Message);
+    }
+
+    switch (eventType) {
+      case 'book': {
+        const book = this.parseOrderbook(msg, timestamp);
+        this.bookCache.set(book.assetId, book);
+        this.emit('orderbook', book);
+        break;
+      }
+
+      case 'price_change': {
+        // price_change has a different structure: { price_changes: [...] }
+        const changes = msg.price_changes as Array<Record<string, string>> || [];
+        for (const change of changes) {
+          const assetId = change.asset_id || '';
+          // Update book cache with best bid/ask from price_change
+          const existingBook = this.bookCache.get(assetId);
+          if (existingBook && change.best_bid && change.best_ask) {
+            // price_change includes best_bid/best_ask — use as lightweight book update
+            existingBook.timestamp = timestamp;
+          }
+          this.emit('priceChange', {
+            assetId,
+            changes: [{ price: change.price, size: change.size }],
+            timestamp,
+          } as PriceChange);
+        }
+        break;
+      }
+
+      case 'last_trade_price': {
+        const trade = this.parseLastTrade(msg, timestamp);
+        this.lastTradeCache.set(trade.assetId, trade);
+        this.emit('lastTrade', trade);
+        break;
+      }
+
+      case 'tick_size_change': {
+        const change = this.parseTickSizeChange(msg, timestamp);
+        this.emit('tickSizeChange', change);
+        break;
+      }
+
+      case 'best_bid_ask': {
+        // Lightweight update — emit as a synthetic orderbook snapshot
+        const assetId = msg.asset_id as string || '';
+        const bestBid = parseFloat(msg.best_bid as string || '0');
+        const bestAsk = parseFloat(msg.best_ask as string || '0');
+        if (assetId && bestBid > 0 && bestAsk > 0) {
+          const existingBook = this.bookCache.get(assetId);
+          if (existingBook) {
+            // Update cached book with new best bid/ask
+            if (existingBook.bids.length > 0) existingBook.bids[0].price = bestBid;
+            if (existingBook.asks.length > 0) existingBook.asks[0].price = bestAsk;
+            existingBook.timestamp = timestamp;
+            this.emit('orderbook', existingBook);
+          }
+        }
+        break;
+      }
+
+      case 'new_market':
+      case 'market_resolved': {
+        const event: MarketEvent = {
+          conditionId: msg.condition_id as string || '',
+          type: eventType === 'new_market' ? 'created' : 'resolved',
+          data: msg,
+          timestamp,
+        };
+        this.emit('marketEvent', event);
+        break;
+      }
+    }
   }
 
   // ============================================================================
@@ -332,19 +577,19 @@ export class RealtimeServiceV2 extends EventEmitter {
    */
   subscribeMarkets(tokenIds: string[], handlers: MarketDataHandlers = {}): MarketSubscription {
     const subId = `market_${++this.subscriptionIdCounter}`;
-    const filterStr = JSON.stringify(tokenIds);
 
-    // Subscribe to all market data types
-    const subscriptions = [
-      { topic: 'clob_market', type: 'agg_orderbook', filters: filterStr },
-      { topic: 'clob_market', type: 'price_change', filters: filterStr },
-      { topic: 'clob_market', type: 'last_trade_price', filters: filterStr },
-      { topic: 'clob_market', type: 'tick_size_change', filters: filterStr },
-    ];
+    // Use dedicated Market Channel WebSocket (RTDS no longer supports clob_market)
+    this.connectMarketChannel();
 
-    const subMsg = { subscriptions };
-    this.sendSubscription(subMsg);
-    this.subscriptionMessages.set(subId, subMsg);  // Store for reconnection
+    // Track tokens for reconnection
+    for (const id of tokenIds) {
+      this.marketWsSubscribedTokens.add(id);
+    }
+
+    // Send subscription if already connected
+    if (this.marketWsConnected) {
+      this.sendMarketChannelSubscription(tokenIds);
+    }
 
     // Register handlers
     const orderbookHandler = (book: OrderbookSnapshot) => {
@@ -386,9 +631,11 @@ export class RealtimeServiceV2 extends EventEmitter {
         this.off('priceChange', priceChangeHandler);
         this.off('lastTrade', lastTradeHandler);
         this.off('tickSizeChange', tickSizeHandler);
-        this.sendUnsubscription({ subscriptions });
+        // Remove tokens from tracked set
+        for (const id of tokenIds) {
+          this.marketWsSubscribedTokens.delete(id);
+        }
         this.subscriptions.delete(subId);
-        this.subscriptionMessages.delete(subId);  // Remove from reconnection list
       },
     };
 
@@ -488,12 +735,8 @@ export class RealtimeServiceV2 extends EventEmitter {
   subscribeMarketEvents(handlers: { onMarketEvent?: (event: MarketEvent) => void }): Subscription {
     const subId = `market_event_${++this.subscriptionIdCounter}`;
 
-    const subscriptions = [
-      { topic: 'clob_market', type: 'market_created' },
-      { topic: 'clob_market', type: 'market_resolved' },
-    ];
-
-    this.sendSubscription({ subscriptions });
+    // Market lifecycle events come via Market Channel (with custom_feature_enabled: true)
+    this.connectMarketChannel();
 
     const handler = (event: MarketEvent) => handlers.onMarketEvent?.(event);
     this.on('marketEvent', handler);
@@ -504,7 +747,6 @@ export class RealtimeServiceV2 extends EventEmitter {
       type: 'lifecycle',
       unsubscribe: () => {
         this.off('marketEvent', handler);
-        this.sendUnsubscription({ subscriptions });
         this.subscriptions.delete(subId);
       },
     };
@@ -894,6 +1136,35 @@ export class RealtimeServiceV2 extends EventEmitter {
   }
 
   // ============================================================================
+  // Recording
+  // ============================================================================
+
+  /**
+   * Start recording WebSocket events to daily JSONL files for backtesting.
+   * @param dir - Directory to write recording files (created if missing)
+   */
+  startRecording(dir: string): void {
+    this.recordingDir = dir;
+    mkdirSync(dir, { recursive: true });
+
+    const today = new Date().toISOString().slice(0, 10);
+    this.recordingDate = today;
+    this.recordingStream = createWriteStream(join(dir, `${today}.jsonl`), { flags: 'a' });
+  }
+
+  /**
+   * Stop recording and close the file stream.
+   */
+  stopRecording(): void {
+    if (this.recordingStream) {
+      this.recordingStream.end();
+      this.recordingStream = null;
+      this.recordingDir = '';
+      this.recordingDate = '';
+    }
+  }
+
+  // ============================================================================
   // Private Methods
   // ============================================================================
 
@@ -928,6 +1199,11 @@ export class RealtimeServiceV2 extends EventEmitter {
 
   private handleMessage(client: RealTimeDataClient, message: Message): void {
     this.log(`Received: ${message.topic}:${message.type}`);
+
+    // Record raw message if recording is enabled
+    if (this.recordingStream && RECORDED_TOPICS.includes(message.topic)) {
+      this.recordEvent(message);
+    }
 
     const payload = message.payload as Record<string, unknown>;
 
@@ -1236,6 +1512,24 @@ export class RealtimeServiceV2 extends EventEmitter {
     if (this.client && this.connected) {
       this.client.unsubscribe(msg);
     }
+  }
+
+  private recordEvent(message: Message): void {
+    // Rotate file on day change
+    const today = new Date().toISOString().slice(0, 10);
+    if (today !== this.recordingDate) {
+      this.recordingStream!.end();
+      this.recordingDate = today;
+      this.recordingStream = createWriteStream(join(this.recordingDir, `${today}.jsonl`), { flags: 'a' });
+    }
+
+    const line = JSON.stringify({
+      ts: Date.now(),
+      topic: message.topic,
+      type: message.type,
+      payload: message.payload,
+    });
+    this.recordingStream!.write(line + '\n');
   }
 
   private log(message: string): void {

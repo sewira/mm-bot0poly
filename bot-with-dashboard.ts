@@ -21,6 +21,8 @@ import { CTFClient } from './src/clients/ctf-client.js';
 import { startDashboard, dashboardEmitter } from './src/dashboard/index.js';
 import type { BotState, BotConfig, LogLevel, DipArbSignal, SmartMoneySignal } from './src/dashboard/types.js';
 import { addSession, createSessionFromState, type TradeRecord } from './src/dashboard/session-history.js';
+import { calculateTakerFee, calculateArbTakerFees, type FeeCategory } from './src/utils/fee-utils.js';
+import { MarketMakingService } from './src/services/market-making-service.js';
 
 // ============================================================================
 // CONFIGURATION (same as bot-config.ts)
@@ -136,7 +138,31 @@ let CONFIG = {
     minRiskReward: 1.5,
   },
 
+  marketMaking: {
+    enabled: process.env.MM_ENABLED === 'true',
+    categories: ['geopolitics', 'finance', 'politics', 'sports'] as FeeCategory[],
+    excludeCategories: ['crypto'] as FeeCategory[],
+    minVolume24h: 500,
+    minDepthShares: 10,
+    priceBand: [0.20, 0.80] as [number, number],
+    minHoursToResolution: 12,
+    baseHalfSpreadTicks: 2,
+    minSpreadTicks: 1,
+    skewWidth: 0.02,
+    orderSize: 10,
+    maxInventoryShares: 50,
+    maxGrossExposureUsd: 100,
+    requoteThresholdTicks: 1,
+    maxUnrealizedLossPct: 0.10,
+    maxMarkets: 3,
+  },
+
   dryRun: process.env.DRY_RUN !== 'false',
+
+  recording: {
+    enabled: process.env.DRY_RUN_RECORD === 'true',
+    dir: 'data/recordings',
+  },
 };
 
 // ============================================================================
@@ -205,6 +231,21 @@ const state: BotState = {
   },
 
   smartMoneySignals: [],
+
+  marketMaking: {
+    status: 'idle' as 'idle' | 'scanning' | 'quoting' | 'stopped',
+    marketsQuoted: 0,
+    totalFills: 0,
+    totalRequotes: 0,
+    realizedSpreadPnL: 0,
+    modeledRebateIncome: 0,
+    grossExposureUsd: 0,
+    markets: [] as Array<{
+      name: string; mid: number; inventory: number;
+      bidPrice: number; askPrice: number;
+      rollingDriftBps: number; isBlacklisted: boolean;
+    }>,
+  },
 };
 
 // ============================================================================
@@ -350,12 +391,75 @@ function simulateTrade(profit: number, strategy: string, description: string) {
   recordTrade(profit, strategy);
 }
 
+/**
+ * Realistic simulation wrapper — applies haircuts to raw profit before recording.
+ *
+ * Adjustments:
+ * 1. Slippage: 50% of raw profit lost (price moves between detection and execution)
+ * 2. Partial fill: scale down if trade size exceeds orderbook depth
+ * 3. Gas cost: ~$0.01 per on-chain operation (merge/split)
+ * 4. Competition: 30% of opportunities taken by other bots before us
+ */
+function simulateRealisticTrade(params: {
+  rawProfit: number;
+  strategy: string;
+  description: string;
+  orderbookDepth?: number;
+  tradeSize?: number;
+  isOnChain?: boolean;
+  shares?: number;
+  price?: number;
+  feeCategory?: FeeCategory;
+  takerLegs?: number;
+  isMakerOrder?: boolean;
+}) {
+  let adjustedProfit = params.rawProfit;
+
+  // 0. Taker fee (hard floor cost — deducted BEFORE slippage)
+  //    Maker orders pay 0; taker orders pay per-leg fee
+  if (!params.isMakerOrder && params.shares && params.price != null) {
+    const legs = params.takerLegs ?? 1;
+    const category = params.feeCategory ?? 'other';
+    let totalFee: number;
+    if (legs === 2) {
+      // Arb: two legs at complementary prices
+      const noPrice = 1 - params.price;
+      totalFee = calculateArbTakerFees(params.shares, params.price, noPrice, category);
+    } else {
+      totalFee = calculateTakerFee(params.shares, params.price, category) * legs;
+    }
+    adjustedProfit -= totalFee;
+  }
+
+  // 1. Slippage: 50% of remaining profit lost to price movement
+  adjustedProfit *= 0.5;
+
+  // 2. Partial fill: scale down if trade exceeds book depth
+  if (params.orderbookDepth && params.tradeSize && params.orderbookDepth > 0) {
+    const fillRate = Math.min(1, params.orderbookDepth / params.tradeSize);
+    adjustedProfit *= fillRate;
+  }
+
+  // 3. Gas cost for on-chain ops (merge/split)
+  if (params.isOnChain) {
+    adjustedProfit -= CONFIG.arbitrage.estimatedGasCostUSD;
+  }
+
+  // 4. Competition: 30% of opportunities taken by other bots
+  adjustedProfit *= 0.7;
+
+  simulateTrade(adjustedProfit, params.strategy,
+    `${params.description} [raw: $${params.rawProfit.toFixed(2)}, adj: $${adjustedProfit.toFixed(2)}]`);
+}
+
 // ============================================================================
 // ============================================================================
 // STRATEGIES (simplified versions - copy full implementations from bot-config.ts)
 // ============================================================================
 
 let arbService: ArbitrageService | null = null;
+let arbMarketFeeCategory: FeeCategory = 'other';
+let isArbScanning = false;  // guard against concurrent arb scans
 let isSmartMoneyInitialized = false;
 let isSmartMoneyInitializing = false;
 
@@ -447,8 +551,13 @@ async function initializeSmartMoney(sdk: PolymarketSDK) {
 
         // EXECUTION LOGIC
         if (CONFIG.dryRun) {
-          // ... execution
-          simulateTrade(0, 'smartMoney', `Smart Money Copy: ${trade.side} ${trade.size} shares @ ${trade.price}`);
+          // Smart money copies are directional bets — profit unknown at entry.
+          // Don't record as trade (it pollutes win/loss stats with $0 entries).
+          // Just log the signal for dashboard visibility.
+          log('SIGNAL', `Smart Money Copy: ${trade.side} ${trade.size} shares @ ${trade.price}`);
+          state.smartMoneyTrades++;
+          updateDashboard();
+          // TODO: Track unrealized PnL when position-based smart money is implemented (#1)
         } else {
           // ... live execution
           // simplified placeholder from original file
@@ -491,12 +600,20 @@ async function setupArbitrage(_sdk: PolymarketSDK) {
     };
     log('ARB', `Opportunity: ${opp.type.toUpperCase()} +${opp.profitPercent.toFixed(2)}%`);
 
-    // SIMULATION HOOK
+    // SIMULATION HOOK — realistic haircuts applied
     if (CONFIG.dryRun && opp.profitPercent > 0) {
-      // Conservative estimate: 10% of max size or min size
       const size = Math.max(CONFIG.arbitrage.minTradeSize, 10);
       const estimatedProfit = size * (opp.profitPercent / 100);
-      simulateTrade(estimatedProfit, 'arbitrage', `Arb ${opp.market}`);
+      simulateRealisticTrade({
+        rawProfit: estimatedProfit,
+        strategy: 'arbitrage',
+        description: `Arb ${opp.type} ${opp.market}`,
+        isOnChain: true,
+        shares: size,
+        price: opp.effectivePrices?.buyYes ?? 0.50,
+        feeCategory: arbMarketFeeCategory,
+        takerLegs: 2,
+      });
     }
 
     updateDashboard();
@@ -513,6 +630,7 @@ async function setupArbitrage(_sdk: PolymarketSDK) {
   // Scan for arbitrage opportunities ONLY if enabled
   if (CONFIG.arbitrage.enabled) {
     state.arbitrage.status = 'scanning';
+    isArbScanning = true;
     try {
       const results = await arbService.scanMarkets(
         { minVolume24h: CONFIG.arbitrage.minVolume24h },
@@ -526,6 +644,7 @@ async function setupArbitrage(_sdk: PolymarketSDK) {
         state.arbitrage.currentMarket = opps[0].market.name;
         state.arbitrage.status = 'monitoring';
         await arbService.start(opps[0].market);
+        arbMarketFeeCategory = (opps[0].feeCategory as FeeCategory) ?? 'other';
         log('ARB', `Started monitoring: ${opps[0].market.name}`);
       } else {
         state.arbitrage.status = 'idle';
@@ -536,9 +655,15 @@ async function setupArbitrage(_sdk: PolymarketSDK) {
       state.arbitrage.status = 'idle';
       log('WARN', `Arbitrage scan error: ${(err as Error).message}`);
       updateDashboard();
+    } finally {
+      isArbScanning = false;
     }
   }
 }
+
+// DipArb cost tracking for simulation PnL
+let dipArbLeg1Cost = 0;
+let dipArbTotalCost = 0;
 
 async function setupDipArb(sdk: PolymarketSDK) {
   // Always setup listeners provided by this function
@@ -625,20 +750,61 @@ async function setupDipArb(sdk: PolymarketSDK) {
       switch (r.leg) {
         case 'leg1':
           log('TRADE', `OPEN ${r.side} | ${shares} shares @ $${price} | ${market}`);
+          // Track leg1 cost for profit calculation on merge/exit
+          dipArbLeg1Cost = (r.price || 0) * (r.shares || 0);
+          dipArbTotalCost = dipArbLeg1Cost;
+          recordTrade(0, 'dipArb');
           break;
-        case 'leg2':
+        case 'leg2': {
           log('TRADE', `HEDGE ${r.side} | ${shares} shares @ $${price} | Locked Profit`);
+          const leg2Cost = (r.price || 0) * (r.shares || 0);
+          dipArbTotalCost = dipArbLeg1Cost + leg2Cost;
+          recordTrade(0, 'dipArb');
           break;
-        case 'exit':
-          log('TRADE', `CLOSE ${r.side} (Timeout Exit) | ${shares} shares @ $${price}`);
+        }
+        case 'merge': {
+          // Merge pays $1 per pair — profit = payout - total cost
+          const payout = (r.shares || 0) * 1.0;
+          const profit = payout - dipArbTotalCost;
+          log('TRADE', `REDEEM | Merged positions for $${payout.toFixed(2)} payout | ${market} | Profit: $${profit.toFixed(2)}`);
+          simulateRealisticTrade({
+            rawProfit: profit,
+            strategy: 'dipArb',
+            description: `DipArb merge ${market}`,
+            isOnChain: true,
+            shares: r.shares || 0,
+            price: 0.50,
+            feeCategory: 'crypto',
+            takerLegs: 2,
+          });
+          // Reset for next round
+          dipArbLeg1Cost = 0;
+          dipArbTotalCost = 0;
           break;
-        case 'merge':
-          log('TRADE', `REDEEM | Merged positions for $1.00 payout | ${market}`);
+        }
+        case 'exit': {
+          // Exit sells leg1 position — profit = sell proceeds - leg1 cost
+          const proceeds = (r.price || 0) * (r.shares || 0);
+          const profit = proceeds - dipArbLeg1Cost;
+          log('TRADE', `CLOSE ${r.side} (Timeout Exit) | ${shares} shares @ $${price} | P&L: $${profit.toFixed(2)}`);
+          simulateRealisticTrade({
+            rawProfit: profit,
+            strategy: 'dipArb',
+            description: `DipArb exit ${r.side}`,
+            shares: r.shares || 0,
+            price: r.price || 0.50,
+            feeCategory: 'crypto',
+            takerLegs: 1,
+          });
+          // Reset for next round
+          dipArbLeg1Cost = 0;
+          dipArbTotalCost = 0;
           break;
+        }
         default:
           log('TRADE', `DipArb ${r.leg}: ${r.side} @ ${price}`);
+          recordTrade(0, 'dipArb');
       }
-      recordTrade(0, 'dipArb');
     } else {
       log('WARN', `DipArb Execution Failed (${r.leg}): ${r.error || 'Unknown error'}`);
     }
@@ -844,8 +1010,6 @@ async function setupBinanceAnalysis(sdk: PolymarketSDK) {
 
   await updateTrends();
   setInterval(updateTrends, 5 * 60 * 1000);
-  await updateTrends();
-  setInterval(updateTrends, 5 * 60 * 1000);
 }
 
 async function setupDirectTrading(sdk: PolymarketSDK) {
@@ -893,7 +1057,8 @@ async function setupDirectTrading(sdk: PolymarketSDK) {
               const price = targetToken.price;
 
               if (CONFIG.dryRun) {
-                // Simulate the trade in DRY RUN mode
+                // Direct trades are directional bets — profit unknown at entry.
+                // TODO: Track unrealized PnL when position management is implemented (#5)
                 simulateTrade(0, 'direct', `Trend signal: ${market.question?.slice(0, 40)}... → ${trend.toUpperCase()} (Buy ${targetToken.outcome}) @ ${price.toFixed(2)}`);
                 state.directTrades = (state.directTrades ?? 0) + 1;
                 updateDashboard();
@@ -1004,6 +1169,106 @@ async function setupPortfolioManager(sdk: PolymarketSDK) {
   }, 30 * 1000);
 }
 
+// ============================================================================
+// MARKET MAKING SETUP
+// ============================================================================
+
+let mmService: MarketMakingService | null = null;
+
+function updateMMState() {
+  if (!mmService) return;
+  const markets = mmService.getMarkets();
+  const stats = mmService.getStats();
+  state.marketMaking.marketsQuoted = stats.marketsQuoted;
+  state.marketMaking.totalFills = stats.fills;
+  state.marketMaking.totalRequotes = stats.requotes;
+  state.marketMaking.realizedSpreadPnL = markets.reduce((s, m) => s + m.realizedSpreadPnL, 0);
+  state.marketMaking.modeledRebateIncome = markets.reduce((s, m) => s + m.modeledRebateIncome, 0);
+  state.marketMaking.grossExposureUsd = markets.reduce((s, m) => s + Math.abs(m.inventory) * m.mid, 0);
+  state.marketMaking.markets = markets.map(m => ({
+    name: m.name,
+    mid: m.mid,
+    inventory: m.inventory,
+    bidPrice: m.restingBidPrice,
+    askPrice: m.restingAskPrice,
+    rollingDriftBps: m.rollingDriftBps,
+    isBlacklisted: m.isBlacklisted,
+  }));
+}
+
+async function setupMarketMaking(sdk: PolymarketSDK) {
+  log('INFO', 'Setting up Market Making Service...');
+
+  mmService = new MarketMakingService(
+    sdk.tradingService,
+    sdk.markets,
+    sdk.realtime,
+    { dryRun: CONFIG.dryRun, ...CONFIG.marketMaking },
+  );
+
+  mmService.on('marketSelected', (data: { name: string; conditionId: string; feeCategory: string }) => {
+    log('INFO', `MM Selected: ${data.name} [${data.feeCategory}]`);
+  });
+
+  mmService.on('quotePosted', (data: { market: string; bidPrice: number; askPrice: number; bidSize: number; askSize: number }) => {
+    log('TRADE', `MM Quote: ${data.market} bid=${data.bidPrice.toFixed(3)} ask=${data.askPrice.toFixed(3)} (${data.bidSize}/${data.askSize} shares)`);
+    updateMMState();
+    updateDashboard();
+  });
+
+  mmService.on('fill', (data: { market: string; side: string; price: number; size: number; inventoryAfter: number; spreadPnL: number; rebateIncome: number }) => {
+    log('TRADE', `MM Fill: ${data.side} ${data.market} @ ${data.price.toFixed(3)} (inv: ${data.inventoryAfter}, spread: $${data.spreadPnL.toFixed(4)}, rebate: $${data.rebateIncome.toFixed(4)})`);
+    if (CONFIG.dryRun) {
+      // Maker orders: no slippage, no competition, no gas — just spread capture + rebate
+      const profit = data.spreadPnL + data.rebateIncome;
+      simulateTrade(profit, 'marketMaking',
+        `MM ${data.side} ${data.market} [spread: $${data.spreadPnL.toFixed(4)}, rebate: $${data.rebateIncome.toFixed(4)}]`);
+    }
+    updateMMState();
+    updateDashboard();
+  });
+
+  mmService.on('fillToMark', (sample: { fillSide: string; driftBps: (number | null)[] }) => {
+    const drifts = sample.driftBps.filter((d): d is number => d !== null);
+    if (drifts.length > 0) {
+      const avg = drifts.reduce((a, b) => a + b, 0) / drifts.length;
+      log('INFO', `MM Fill-to-Mark: ${sample.fillSide} avg drift=${avg.toFixed(1)}bps`);
+    }
+  });
+
+  mmService.on('marketBlacklisted', (data: { market: string; reason: string }) => {
+    log('WARN', `MM Blacklisted: ${data.market} (${data.reason})`);
+    updateMMState();
+    updateDashboard();
+  });
+
+  mmService.on('requote', (data: { market: string; reason: string }) => {
+    // Only log occasionally to avoid spam
+    if (state.marketMaking.totalRequotes % 10 === 0) {
+      log('INFO', `MM Requote #${state.marketMaking.totalRequotes}: ${data.market} (${data.reason})`);
+    }
+    updateMMState();
+    updateDashboard();
+  });
+
+  mmService.on('error', (err: Error) => {
+    log('ERROR', `MM Error: ${err.message}`);
+  });
+
+  if (CONFIG.marketMaking.enabled) {
+    state.marketMaking.status = 'scanning';
+    updateDashboard();
+    try {
+      await mmService.start();
+      state.marketMaking.status = mmService.isActive() ? 'quoting' : 'idle';
+    } catch (err: any) {
+      log('ERROR', `MM start failed: ${err.message}`);
+      state.marketMaking.status = 'idle';
+    }
+    updateDashboard();
+  }
+}
+
 async function main() {
   console.clear();
   console.log('╔════════════════════════════════════════════════════════════════════╗');
@@ -1043,6 +1308,9 @@ async function main() {
     directTrading: {
       enabled: CONFIG.directTrading.enabled,
     },
+    marketMaking: {
+      enabled: CONFIG.marketMaking.enabled,
+    },
     binance: {
       enabled: CONFIG.binance.enabled,
     },
@@ -1058,14 +1326,17 @@ async function main() {
   // Handle Dashboard Commands
   dashboardEmitter.on('command', async (cmd: { command: string; payload: any }) => {
     if (cmd.command === 'toggleDryRun') {
-      const enable = cmd.payload.enabled;
+      const enable = cmd.payload.enabled; // true = dry run ON, false = LIVE
       if (CONFIG.dryRun === !enable) {
-        log('INFO', `Switching to ${!enable ? 'LIVE' : 'DRY RUN'} mode... (Requested by user)`);
+        // Guard: switching TO LIVE requires explicit env confirmation
+        if (!enable && CONFIG.dryRun) {
+          if (process.env.LIVE_TRADING_CONFIRMED !== 'true') {
+            log('ERROR', 'Switching to LIVE mode requires LIVE_TRADING_CONFIRMED=true in .env');
+            return;
+          }
+        }
 
-        // Update Config
-        CONFIG.dryRun = !enable; // payload.enabled is "isLive?" or "isDryRun?" - let's assume payload.enabled is the NEW STATE for dryRun? 
-        // Wait, usually toggles send the new desired state. 
-        // Using "enabled" as "isDryRun enabled"
+        log('INFO', `Switching to ${enable ? 'DRY RUN' : 'LIVE'} mode... (Requested by user)`);
         CONFIG.dryRun = !!enable;
 
         // Update State paper wallet
@@ -1103,6 +1374,7 @@ async function main() {
           arbitrage: { ...CONFIG.arbitrage },
           dipArb: { ...CONFIG.dipArb },
           directTrading: { ...CONFIG.directTrading },
+          marketMaking: { enabled: CONFIG.marketMaking.enabled },
           binance: { ...CONFIG.binance },
           dryRun: CONFIG.dryRun,
         };
@@ -1132,6 +1404,12 @@ async function main() {
 
   log('INFO', `Wallet: ${sdk.tradingService.getAddress()}`);
 
+  // Start recording WebSocket events for backtesting
+  if (CONFIG.recording.enabled) {
+    sdk.realtime.startRecording(CONFIG.recording.dir);
+    log('INFO', `Recording WebSocket events to ${CONFIG.recording.dir}/`);
+  }
+
   // Setup all services
   await setupOnchain(); // MUST BE FIRST (Approvals)
   await setupSwap();
@@ -1147,6 +1425,9 @@ async function main() {
 
   // Setup Direct Trading
   await setupDirectTrading(sdk);
+
+  // Setup Market Making
+  await setupMarketMaking(sdk);
 
   // Setup Portfolio Manager (Persistence)
   await setupPortfolioManager(sdk);
@@ -1230,8 +1511,11 @@ async function main() {
 
                 if (arbService.isActive()) {
                   log('WARN', `Arbitrage Service is already running.`);
+                } else if (isArbScanning) {
+                  log('WARN', `Arbitrage scan already in progress, skipping.`);
                 } else {
                   log('INFO', `Starting Arbitrage Service...`);
+                  isArbScanning = true;
 
                   // Try to scan and start a market if possible
                   try {
@@ -1240,6 +1524,7 @@ async function main() {
 
                     if (best) {
                       await arbService.start(best.market);
+                      arbMarketFeeCategory = (best.feeCategory as FeeCategory) ?? 'other';
                       state.activeArbMarket = best.market.name;
                       state.arbitrage.status = 'monitoring';
                       log('ARB', `Auto-started monitoring: ${best.market.name}`);
@@ -1253,6 +1538,8 @@ async function main() {
                     state.arbitrage.status = 'idle';
                     log('WARN', `Arbitrage auto-start failed: ${(e as Error).message}`);
                     updateDashboard();
+                  } finally {
+                    isArbScanning = false;
                   }
                 }
               } else {
@@ -1277,11 +1564,35 @@ async function main() {
           } else if (strategy === 'directTrading') {
             if (enabled) {
               log('INFO', `Triggering Direct Trading analysis...`);
-              // We can't easily reach the inner function checkTrendTrades from here because it's scoped inside setupDirectTrading.
-              // However, checkTrendTrades runs on an interval and checks the config flag. 
-              // By enabling the flag, the NEXT interval will pick it up.
-              // To be immediate, we'd need to expose it, but simplified "Wait for next cycle" is acceptable or we can just log.
               log('INFO', `Direct Trading will run on next cycle (within 5 min).`);
+            }
+          } else if (strategy === 'marketMaking') {
+            if (enabled) {
+              if (mmService?.isActive()) {
+                log('WARN', 'Market Making is already running.');
+              } else if (mmService) {
+                log('INFO', 'Starting Market Making Service...');
+                state.marketMaking.status = 'scanning';
+                updateDashboard();
+                try {
+                  await mmService.start();
+                  state.marketMaking.status = mmService.isActive() ? 'quoting' : 'idle';
+                } catch (e) {
+                  log('WARN', `Market Making start failed: ${(e as Error).message}`);
+                  state.marketMaking.status = 'idle';
+                }
+                updateDashboard();
+              } else {
+                log('ERROR', 'Market Making Service not initialized. Restart bot.');
+              }
+            } else {
+              if (mmService) {
+                log('INFO', 'Stopping Market Making Service...');
+                await mmService.stop();
+                state.marketMaking.status = 'stopped';
+                updateMMState();
+                updateDashboard();
+              }
             }
           }
         } catch (err: any) {
@@ -1312,6 +1623,9 @@ async function main() {
           },
           directTrading: {
             enabled: CONFIG.directTrading.enabled,
+          },
+          marketMaking: {
+            enabled: CONFIG.marketMaking.enabled,
           },
           binance: {
             enabled: CONFIG.binance.enabled,
@@ -1373,6 +1687,8 @@ async function main() {
 
   process.on('SIGINT', async () => {
     console.log('\n\nShutting down...');
+    sdk.realtime.stopRecording();
+    if (mmService) await mmService.stop();
     if (arbService) await arbService.stop();
     await sdk.dipArb.stop();
     sdk.stop();
@@ -1401,6 +1717,7 @@ async function main() {
     console.log(`    Smart Money:  ${state.smartMoneyTrades} trades | ${state.followedWallets.length} wallets`);
     console.log(`    Arbitrage:    ${state.arbTrades} trades`);
     console.log(`    DipArb:       ${state.dipArbTrades} trades`);
+    console.log(`    MM:           ${state.marketMaking.status} | ${state.marketMaking.totalFills} fills | spread $${state.marketMaking.realizedSpreadPnL.toFixed(4)}`);
     console.log('═'.repeat(70) + '\n');
   }
 
