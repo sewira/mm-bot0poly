@@ -1,0 +1,517 @@
+{"ts":1781108942449,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781108942452,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781108942453,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 5000ms"}
+{"ts":1781108949643,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781108949646,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781108949647,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 5000ms"}
+{"ts":1781108957962,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781108957964,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781108957965,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 5000ms"}
+{"ts":1781108963299,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781108963302,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781108963302,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 5000ms"}
+{"ts":1781109013720,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781109013723,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781109013724,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 5000ms"}
+{"ts":1781109014725,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781109014728,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781109018484,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781109018487,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781109018488,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 5000ms"}
+{"ts":1781109019489,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781109019492,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781109097898,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781109097902,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781109097903,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 5000ms"}
+{"ts":1781109098905,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781109098908,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781109108116,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781109108125,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781109108126,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 5000ms"}
+{"ts":1781109109128,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781109109131,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781110000861,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781110000864,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781110000865,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 5000ms"}
+{"ts":1781110001867,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781110001869,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781110000885,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill — unrealized loss $5.00 (20.0%) > 10% cap"}
+{"ts":1781110000885,"market":"Test Market","trigger":"kill_switch","midBefore":0.4,"midAfter60s":null,"quotesActive":false,"action":"kill — unrealized loss $5.00 (20.0%) > 10% cap"}
+{"ts":1781110007416,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781110007419,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781110007420,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 5000ms"}
+{"ts":1781110008421,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781110008423,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781110007435,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill — unrealized loss $5.00 (20.0%) > 10% cap"}
+{"ts":1781110007435,"market":"Test Market","trigger":"kill_switch","midBefore":0.4,"midAfter60s":null,"quotesActive":false,"action":"kill — unrealized loss $5.00 (20.0%) > 10% cap"}
+{"ts":1781110015828,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781110015832,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781110015833,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 5000ms"}
+{"ts":1781110016835,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781110016837,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781110015852,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill — unrealized loss $5.00 (20.0%) > 10% cap"}
+{"ts":1781110015852,"market":"Test Market","trigger":"kill_switch","midBefore":0.4,"midAfter60s":null,"quotesActive":false,"action":"kill — unrealized loss $5.00 (20.0%) > 10% cap"}
+{"ts":1781110022766,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781110022770,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781110022770,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 5000ms"}
+{"ts":1781110023772,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781110023775,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781110022790,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill — unrealized loss $5.00 (20.0%) > 10% cap"}
+{"ts":1781110022790,"market":"Test Market","trigger":"kill_switch","midBefore":0.4,"midAfter60s":null,"quotesActive":false,"action":"kill — unrealized loss $5.00 (20.0%) > 10% cap"}
+{"ts":1781110024052,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781110024057,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781110024058,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 5000ms"}
+{"ts":1781110025060,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781110025062,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781110024078,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill — unrealized loss $5.00 (20.0%) > 10% cap"}
+{"ts":1781110024078,"market":"Test Market","trigger":"kill_switch","midBefore":0.4,"midAfter60s":null,"quotesActive":false,"action":"kill — unrealized loss $5.00 (20.0%) > 10% cap"}
+{"ts":1781110069324,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781110069328,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781110069329,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 5000ms"}
+{"ts":1781110070331,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781110070333,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781110069357,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill — unrealized loss $5.00 (20.0%) > 10% cap"}
+{"ts":1781110069357,"market":"Test Market","trigger":"kill_switch","midBefore":0.4,"midAfter60s":null,"quotesActive":false,"action":"kill — unrealized loss $5.00 (20.0%) > 10% cap"}
+{"ts":1781110077785,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781110077790,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781110077792,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 5000ms"}
+{"ts":1781110078794,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781110078797,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781110077817,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill — unrealized loss $5.00 (20.0%) > 10% cap"}
+{"ts":1781110077818,"market":"Test Market","trigger":"kill_switch","midBefore":0.4,"midAfter60s":null,"quotesActive":false,"action":"kill — unrealized loss $5.00 (20.0%) > 10% cap"}
+{"ts":1781110246386,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781110246396,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781110246400,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 5000ms"}
+{"ts":1781110247405,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781110247416,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781110246461,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, SELL 50@0.5"}
+{"ts":1781110246463,"market":"Test Market","trigger":"kill_switch","midBefore":0.4,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, BUY 50@0.52"}
+{"ts":1781110283107,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781110283126,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781110283128,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 5000ms"}
+{"ts":1781110284149,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781110284156,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781110283191,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, SELL 50@0.5"}
+{"ts":1781110283194,"market":"Test Market","trigger":"kill_switch","midBefore":0.4,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, BUY 50@0.52"}
+{"ts":1781110283198,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, SELL 50@0.49"}
+{"ts":1781110304385,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781110304459,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781110304462,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 5000ms"}
+{"ts":1781110305471,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781110305494,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781110304570,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, SELL 50@0.5"}
+{"ts":1781110304585,"market":"Test Market","trigger":"kill_switch","midBefore":0.4,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, BUY 50@0.52"}
+{"ts":1781110304592,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, SELL 50@0.49"}
+{"ts":1781110375251,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781110375305,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781110375425,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 5000ms"}
+{"ts":1781110376521,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781110376551,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781110375680,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, SELL 50@0.5"}
+{"ts":1781110375682,"market":"Test Market","trigger":"kill_switch","midBefore":0.4,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, BUY 50@0.52"}
+{"ts":1781110375689,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, SELL 50@0.49"}
+{"ts":1781110779555,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781110779574,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781110779576,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 5000ms"}
+{"ts":1781110780579,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781110780591,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781110779642,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, SELL 50@0.5"}
+{"ts":1781110779644,"market":"Test Market","trigger":"kill_switch","midBefore":0.4,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, BUY 50@0.52"}
+{"ts":1781110779648,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, SELL 50@0.49"}
+{"ts":1781111029950,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781111029953,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781111029954,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 5000ms"}
+{"ts":1781111030956,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781111030966,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781111029989,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, SELL 50@0.5"}
+{"ts":1781111029991,"market":"Test Market","trigger":"kill_switch","midBefore":0.4,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, BUY 50@0.52"}
+{"ts":1781111029992,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, SELL 50@0.49"}
+{"ts":1781111043667,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781111043671,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781111043672,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 5000ms"}
+{"ts":1781111044674,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781111044676,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781111043700,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, SELL 50@0.5"}
+{"ts":1781111043700,"market":"Test Market","trigger":"kill_switch","midBefore":0.4,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, BUY 50@0.52"}
+{"ts":1781111043702,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, SELL 50@0.49"}
+{"ts":1781111065955,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781111065960,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781111065961,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 5000ms"}
+{"ts":1781111066963,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781111066965,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781111065985,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, SELL 50@0.5"}
+{"ts":1781111065986,"market":"Test Market","trigger":"kill_switch","midBefore":0.4,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, BUY 50@0.52"}
+{"ts":1781111065991,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, SELL 50@0.49"}
+{"ts":1781111071707,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781111071710,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781111071713,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 5000ms"}
+{"ts":1781111072715,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781111072720,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781111071763,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, SELL 50@0.5"}
+{"ts":1781111071766,"market":"Test Market","trigger":"kill_switch","midBefore":0.4,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, BUY 50@0.52"}
+{"ts":1781111071767,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, SELL 50@0.49"}
+{"ts":1781111243497,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781111243500,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781111243501,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 5000ms"}
+{"ts":1781111244503,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781111244509,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781111243529,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, SELL 50@0.5"}
+{"ts":1781111243529,"market":"Test Market","trigger":"kill_switch","midBefore":0.4,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, BUY 50@0.52"}
+{"ts":1781111243531,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, SELL 50@0.49"}
+{"ts":1781111243535,"market":"Test Market","trigger":"rebate_divergence","midBefore":null,"midAfter60s":null,"quotesActive":true,"action":"modeled=$10.0000 actual=$7.0000 divergence=30.0%"}
+{"ts":1781111252699,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781111252705,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781111252706,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 5000ms"}
+{"ts":1781111253708,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781111253711,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781111252735,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, SELL 50@0.5"}
+{"ts":1781111252740,"market":"Test Market","trigger":"kill_switch","midBefore":0.4,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, BUY 50@0.52"}
+{"ts":1781111252743,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, SELL 50@0.49"}
+{"ts":1781111252749,"market":"Test Market","trigger":"rebate_divergence","midBefore":null,"midAfter60s":null,"quotesActive":true,"action":"modeled=$10.0000 actual=$7.0000 divergence=30.0%"}
+{"ts":1781111265725,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781111265729,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781111265730,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 5000ms"}
+{"ts":1781111266740,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781111266749,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781111265813,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, SELL 50@0.5"}
+{"ts":1781111265813,"market":"Test Market","trigger":"kill_switch","midBefore":0.4,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, BUY 50@0.52"}
+{"ts":1781111265815,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, SELL 50@0.49"}
+{"ts":1781111265827,"market":"Test Market","trigger":"rebate_divergence","midBefore":null,"midAfter60s":null,"quotesActive":true,"action":"modeled=$10.0000 actual=$7.0000 divergence=30.0%"}
+{"ts":1781111404708,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781111404711,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781111404712,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 5000ms"}
+{"ts":1781111405713,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781111405716,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781111404733,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, SELL 50@0.5"}
+{"ts":1781111404734,"market":"Test Market","trigger":"kill_switch","midBefore":0.4,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, BUY 50@0.52"}
+{"ts":1781111404735,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, SELL 50@0.49"}
+{"ts":1781111404741,"market":"Test Market","trigger":"rebate_divergence","midBefore":null,"midAfter60s":null,"quotesActive":true,"action":"modeled=$10.0000 actual=$7.0000 divergence=30.0%"}
+{"ts":1781111411529,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781111411533,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781111411534,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 5000ms"}
+{"ts":1781111412541,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781111412546,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781111411580,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, SELL 50@0.5"}
+{"ts":1781111411581,"market":"Test Market","trigger":"kill_switch","midBefore":0.4,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, BUY 50@0.52"}
+{"ts":1781111411585,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, SELL 50@0.49"}
+{"ts":1781111411594,"market":"Test Market","trigger":"rebate_divergence","midBefore":null,"midAfter60s":null,"quotesActive":true,"action":"modeled=$10.0000 actual=$7.0000 divergence=30.0%"}
+{"ts":1781136535777,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781136535779,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781136535780,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 5000ms"}
+{"ts":1781136536782,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781136536784,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781136535800,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, SELL 50@0.5"}
+{"ts":1781136535800,"market":"Test Market","trigger":"kill_switch","midBefore":0.4,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, BUY 50@0.52"}
+{"ts":1781136535801,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, SELL 50@0.49"}
+{"ts":1781136535805,"market":"Test Market","trigger":"rebate_divergence","midBefore":null,"midAfter60s":null,"quotesActive":true,"action":"modeled=$10.0000 actual=$7.0000 divergence=30.0%"}
+{"ts":1781136541735,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781136541740,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781136541741,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 5000ms"}
+{"ts":1781136542743,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781136542745,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781136541767,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, SELL 50@0.5"}
+{"ts":1781136541770,"market":"Test Market","trigger":"kill_switch","midBefore":0.4,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, BUY 50@0.52"}
+{"ts":1781136541771,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, SELL 50@0.49"}
+{"ts":1781136541777,"market":"Test Market","trigger":"rebate_divergence","midBefore":null,"midAfter60s":null,"quotesActive":true,"action":"modeled=$10.0000 actual=$7.0000 divergence=30.0%"}
+{"ts":1781136702280,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781136702283,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781136702283,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 5000ms"}
+{"ts":1781136703284,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781136703287,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781136702299,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, SELL 50@0.5"}
+{"ts":1781136702299,"market":"Test Market","trigger":"kill_switch","midBefore":0.4,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, BUY 50@0.52"}
+{"ts":1781136702300,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, SELL 50@0.49"}
+{"ts":1781136702304,"market":"Test Market","trigger":"rebate_divergence","midBefore":null,"midAfter60s":null,"quotesActive":true,"action":"modeled=$10.0000 actual=$7.0000 divergence=30.0%"}
+{"ts":1781136708979,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781136708981,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781136708982,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 5000ms"}
+{"ts":1781136709983,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781136709985,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781136708997,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, SELL 50@0.5"}
+{"ts":1781136708997,"market":"Test Market","trigger":"kill_switch","midBefore":0.4,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, BUY 50@0.52"}
+{"ts":1781136708998,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, SELL 50@0.49"}
+{"ts":1781136709003,"market":"Test Market","trigger":"rebate_divergence","midBefore":null,"midAfter60s":null,"quotesActive":true,"action":"modeled=$10.0000 actual=$7.0000 divergence=30.0%"}
+{"ts":1781136714637,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781136714639,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781136714640,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 5000ms"}
+{"ts":1781136715641,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781136715643,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781136714655,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, SELL 50@0.5"}
+{"ts":1781136714656,"market":"Test Market","trigger":"kill_switch","midBefore":0.4,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, BUY 50@0.52"}
+{"ts":1781136714657,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, SELL 50@0.49"}
+{"ts":1781136714662,"market":"Test Market","trigger":"rebate_divergence","midBefore":null,"midAfter60s":null,"quotesActive":true,"action":"modeled=$10.0000 actual=$7.0000 divergence=30.0%"}
+{"ts":1781136721212,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781136721214,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781136721215,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 5000ms"}
+{"ts":1781136722216,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781136722218,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781136721231,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, SELL 50@0.5"}
+{"ts":1781136721232,"market":"Test Market","trigger":"kill_switch","midBefore":0.4,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, BUY 50@0.52"}
+{"ts":1781136721233,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, SELL 50@0.49"}
+{"ts":1781136721236,"market":"Test Market","trigger":"rebate_divergence","midBefore":null,"midAfter60s":null,"quotesActive":true,"action":"modeled=$10.0000 actual=$7.0000 divergence=30.0%"}
+{"ts":1781136726621,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781136726623,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781136726624,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 5000ms"}
+{"ts":1781136727625,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781136727627,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781136726640,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, SELL 50@0.5"}
+{"ts":1781136726641,"market":"Test Market","trigger":"kill_switch","midBefore":0.4,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, BUY 50@0.52"}
+{"ts":1781136726641,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, SELL 50@0.49"}
+{"ts":1781136726645,"market":"Test Market","trigger":"rebate_divergence","midBefore":null,"midAfter60s":null,"quotesActive":true,"action":"modeled=$10.0000 actual=$7.0000 divergence=30.0%"}
+{"ts":1781136849704,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781136849707,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781136849708,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 5000ms"}
+{"ts":1781136850709,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781136850711,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781136849724,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, SELL 50@0.5"}
+{"ts":1781136849725,"market":"Test Market","trigger":"kill_switch","midBefore":0.4,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, BUY 50@0.52"}
+{"ts":1781136849726,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, SELL 50@0.49"}
+{"ts":1781136849729,"market":"Test Market","trigger":"rebate_divergence","midBefore":null,"midAfter60s":null,"quotesActive":true,"action":"modeled=$10.0000 actual=$7.0000 divergence=30.0%"}
+{"ts":1781136959386,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781136959389,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781136959389,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 5000ms"}
+{"ts":1781136960391,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781136960393,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781136959406,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, SELL 50@0.5"}
+{"ts":1781136959406,"market":"Test Market","trigger":"kill_switch","midBefore":0.4,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, BUY 50@0.52"}
+{"ts":1781136959408,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, SELL 50@0.49"}
+{"ts":1781136959412,"market":"Test Market","trigger":"rebate_divergence","midBefore":null,"midAfter60s":null,"quotesActive":true,"action":"modeled=$10.0000 actual=$7.0000 divergence=30.0%"}
+{"ts":1781137031541,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781137031544,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781137031545,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 5000ms"}
+{"ts":1781137032546,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781137032549,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781137031565,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, SELL 50@0.5"}
+{"ts":1781137031566,"market":"Test Market","trigger":"kill_switch","midBefore":0.4,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, BUY 50@0.52"}
+{"ts":1781137031567,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, SELL 50@0.49"}
+{"ts":1781137031572,"market":"Test Market","trigger":"rebate_divergence","midBefore":null,"midAfter60s":null,"quotesActive":true,"action":"modeled=$10.0000 actual=$7.0000 divergence=30.0%"}
+{"ts":1781137039355,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781137039358,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781137039359,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 5000ms"}
+{"ts":1781137040361,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781137040365,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781137039385,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, SELL 50@0.5"}
+{"ts":1781137039386,"market":"Test Market","trigger":"kill_switch","midBefore":0.4,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, BUY 50@0.52"}
+{"ts":1781137039389,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, SELL 50@0.49"}
+{"ts":1781137039396,"market":"Test Market","trigger":"rebate_divergence","midBefore":null,"midAfter60s":null,"quotesActive":true,"action":"modeled=$10.0000 actual=$7.0000 divergence=30.0%"}
+{"ts":1781139135070,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781139135074,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781139135075,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 5000ms"}
+{"ts":1781139136077,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781139136080,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781139135100,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, SELL 50@0.5"}
+{"ts":1781139135102,"market":"Test Market","trigger":"kill_switch","midBefore":0.4,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, BUY 50@0.52"}
+{"ts":1781139135115,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, SELL 50@0.49"}
+{"ts":1781139135121,"market":"Test Market","trigger":"rebate_divergence","midBefore":null,"midAfter60s":null,"quotesActive":true,"action":"modeled=$10.0000 actual=$7.0000 divergence=30.0%"}
+{"ts":1781139493928,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781139493931,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781139493931,"market":"Test Market","trigger":"circuit_breaker","midBefore":0.5,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 5000ms"}
+{"ts":1781139494933,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781139494936,"market":"Test Market","trigger":"stale_feed","midBefore":0.51,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 4000ms > 2000ms"}
+{"ts":1781139493952,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, SELL 50@0.5"}
+{"ts":1781139493953,"market":"Test Market","trigger":"kill_switch","midBefore":0.4,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, BUY 50@0.52"}
+{"ts":1781139493955,"market":"Test Market","trigger":"kill_switch","midBefore":0.6,"midAfter60s":null,"quotesActive":false,"action":"kill+flatten — loss $5.00 (20.0%) > 10% cap, SELL 50@0.49"}
+{"ts":1781139493960,"market":"Test Market","trigger":"rebate_divergence","midBefore":null,"midAfter60s":null,"quotesActive":true,"action":"modeled=$10.0000 actual=$7.0000 divergence=30.0%"}
+{"ts":1781140614457,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.483,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 10003ms > 10000ms"}
+{"ts":1781140614457,"market":"Will the Carolina Hurricanes win the 2026 NHL Stanley Cup?","trigger":"stale_feed","midBefore":0.575,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 10003ms > 10000ms"}
+{"ts":1781140614457,"market":"Will the Vegas Golden Knights win the 2026 NHL Stanley Cup?","trigger":"stale_feed","midBefore":0.422,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 10003ms > 10000ms"}
+{"ts":1781140674469,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.4845,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 12816ms > 10000ms"}
+{"ts":1781140694472,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.4845,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 13050ms > 10000ms"}
+{"ts":1781140779486,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.473,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 12315ms > 10000ms"}
+{"ts":1781140800155,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.4515,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781140800409,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.387,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781140800410,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.431,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781140801108,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.3675,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781140801298,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.4075,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781140802902,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.41500000000000004,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781140803774,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.4285,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781140805761,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.4675,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781140809996,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.4335,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781140810997,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.4645,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781140812212,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.43000000000000005,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781140818448,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.464,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781140829346,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.4345,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781140834101,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.429,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781140858236,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.4105,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781140800155,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.4515,"midAfter60s":0.4105,"quotesActive":false,"action":"followup_sample"}
+{"ts":1781140860288,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.4105,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781140800409,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.387,"midAfter60s":0.419,"quotesActive":false,"action":"followup_sample"}
+{"ts":1781140800410,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.431,"midAfter60s":0.419,"quotesActive":false,"action":"followup_sample"}
+{"ts":1781140801108,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.3675,"midAfter60s":0.419,"quotesActive":false,"action":"followup_sample"}
+{"ts":1781140801298,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.4075,"midAfter60s":0.419,"quotesActive":false,"action":"followup_sample"}
+{"ts":1781140802902,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.41500000000000004,"midAfter60s":0.419,"quotesActive":false,"action":"followup_sample"}
+{"ts":1781140803774,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.4285,"midAfter60s":0.419,"quotesActive":false,"action":"followup_sample"}
+{"ts":1781140805761,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.4675,"midAfter60s":0.417,"quotesActive":false,"action":"followup_sample"}
+{"ts":1781140809996,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.4335,"midAfter60s":0.419,"quotesActive":false,"action":"followup_sample"}
+{"ts":1781140810997,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.4645,"midAfter60s":0.419,"quotesActive":false,"action":"followup_sample"}
+{"ts":1781140812212,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.43000000000000005,"midAfter60s":0.419,"quotesActive":false,"action":"followup_sample"}
+{"ts":1781140875391,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.4235,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781140818448,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.464,"midAfter60s":0.453,"quotesActive":false,"action":"followup_sample"}
+{"ts":1781140829346,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.4345,"midAfter60s":0.453,"quotesActive":false,"action":"followup_sample"}
+{"ts":1781140891277,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.4425,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781140834101,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.429,"midAfter60s":0.452,"quotesActive":false,"action":"followup_sample"}
+{"ts":1781140858236,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.4105,"midAfter60s":0.448,"quotesActive":false,"action":"followup_sample"}
+{"ts":1781140860288,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.4105,"midAfter60s":0.448,"quotesActive":false,"action":"followup_sample"}
+{"ts":1781140932250,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.436,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781140875391,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.4235,"midAfter60s":0.439,"quotesActive":false,"action":"followup_sample"}
+{"ts":1781140945622,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.441,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781140949295,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.441,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781140891277,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.4425,"midAfter60s":0.446,"quotesActive":false,"action":"followup_sample"}
+{"ts":1781140966628,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.443,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781140932250,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.436,"midAfter60s":0.436,"quotesActive":false,"action":"followup_sample"}
+{"ts":1781140945622,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.441,"midAfter60s":0.4335,"quotesActive":true,"action":"followup_sample"}
+{"ts":1781140949295,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.441,"midAfter60s":0.432,"quotesActive":true,"action":"followup_sample"}
+{"ts":1781140966628,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.443,"midAfter60s":0.433,"quotesActive":true,"action":"followup_sample"}
+{"ts":1781141064548,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.4345,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 11361ms > 10000ms"}
+{"ts":1781141079551,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.4345,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 13629ms > 10000ms"}
+{"ts":1781141104555,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.435,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 10590ms > 10000ms"}
+{"ts":1781141144566,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.435,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 10037ms > 10000ms"}
+{"ts":1781141164569,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.4355,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 14327ms > 10000ms"}
+{"ts":1781141232560,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.438,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781141277935,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.41900000000000004,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781141281697,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.4275,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781141283447,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.42100000000000004,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781141283718,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.41000000000000003,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781141232560,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.438,"midAfter60s":0.4155,"quotesActive":false,"action":"followup_sample"}
+{"ts":1781141277935,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.41900000000000004,"midAfter60s":0.4075,"quotesActive":true,"action":"followup_sample"}
+{"ts":1781141281697,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.4275,"midAfter60s":0.4075,"quotesActive":true,"action":"followup_sample"}
+{"ts":1781141283447,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.42100000000000004,"midAfter60s":0.4075,"quotesActive":true,"action":"followup_sample"}
+{"ts":1781141283718,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.41000000000000003,"midAfter60s":0.40700000000000003,"quotesActive":true,"action":"followup_sample"}
+{"ts":1781141346252,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.4075,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781141346504,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.4125,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781141362074,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.4165,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781141379024,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.4125,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781141398374,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.41300000000000003,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781141400140,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.41300000000000003,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781141403231,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.4075,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781141346252,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.4075,"midAfter60s":0.4075,"quotesActive":false,"action":"followup_sample"}
+{"ts":1781141346504,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.4125,"midAfter60s":0.4075,"quotesActive":false,"action":"followup_sample"}
+{"ts":1781141408028,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.4075,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781141413991,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.4175,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781141414110,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.39849999999999997,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781141362074,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.4165,"midAfter60s":0.401,"quotesActive":false,"action":"followup_sample"}
+{"ts":1781141379024,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.4125,"midAfter60s":0.4,"quotesActive":false,"action":"followup_sample"}
+{"ts":1781141398374,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.41300000000000003,"midAfter60s":0.40900000000000003,"quotesActive":true,"action":"followup_sample"}
+{"ts":1781141400140,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.41300000000000003,"midAfter60s":0.4095,"quotesActive":true,"action":"followup_sample"}
+{"ts":1781141403231,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.4075,"midAfter60s":0.41300000000000003,"quotesActive":true,"action":"followup_sample"}
+{"ts":1781141408028,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.4075,"midAfter60s":0.41300000000000003,"quotesActive":true,"action":"followup_sample"}
+{"ts":1781141413991,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.4175,"midAfter60s":0.4135,"quotesActive":true,"action":"followup_sample"}
+{"ts":1781141414110,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.39849999999999997,"midAfter60s":0.4135,"quotesActive":true,"action":"followup_sample"}
+{"ts":1781141497831,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.41200000000000003,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781141498320,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.3815,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781141511953,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.419,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781141512391,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.3815,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781141512465,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.4155,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781141497831,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.41200000000000003,"midAfter60s":0.418,"quotesActive":true,"action":"followup_sample"}
+{"ts":1781141498320,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.3815,"midAfter60s":0.418,"quotesActive":true,"action":"followup_sample"}
+{"ts":1781141511953,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.419,"midAfter60s":0.4135,"quotesActive":true,"action":"followup_sample"}
+{"ts":1781141512391,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.3815,"midAfter60s":0.4135,"quotesActive":true,"action":"followup_sample"}
+{"ts":1781141512465,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.4155,"midAfter60s":0.4135,"quotesActive":true,"action":"followup_sample"}
+{"ts":1781141583434,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.399,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781141583805,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.40800000000000003,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781141599713,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.415,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781141604676,"market":"Will the Vegas Golden Knights win the 2026 NHL Stanley Cup?","trigger":"stale_feed","midBefore":0.422,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 14590ms > 10000ms"}
+{"ts":1781141636997,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.40149999999999997,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781141583434,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.399,"midAfter60s":0.40549999999999997,"quotesActive":false,"action":"followup_sample"}
+{"ts":1781141583805,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.40800000000000003,"midAfter60s":0.409,"quotesActive":false,"action":"followup_sample"}
+{"ts":1781141599713,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.415,"midAfter60s":0.4095,"quotesActive":false,"action":"followup_sample"}
+{"ts":1781141636997,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.40149999999999997,"midAfter60s":0.405,"quotesActive":true,"action":"followup_sample"}
+{"ts":1781141739699,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.40700000000000003,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 12138ms > 10000ms"}
+{"ts":1781141791360,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.39,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781141799711,"market":"Will the Vegas Golden Knights win the 2026 NHL Stanley Cup?","trigger":"stale_feed","midBefore":0.422,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 13900ms > 10000ms"}
+{"ts":1781141800680,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.402,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781141827025,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.402,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781141791360,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.39,"midAfter60s":0.394,"quotesActive":false,"action":"followup_sample"}
+{"ts":1781141800680,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.402,"midAfter60s":0.3955,"quotesActive":false,"action":"followup_sample"}
+{"ts":1781141872613,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.391,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781141873430,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.3815,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781141874331,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.3885,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781141883654,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.396,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781141885314,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.3895,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781141827025,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.402,"midAfter60s":0.395,"quotesActive":false,"action":"followup_sample"}
+{"ts":1781141898587,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.395,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781141872613,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.391,"midAfter60s":0.4075,"quotesActive":false,"action":"followup_sample"}
+{"ts":1781141873430,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.3815,"midAfter60s":0.4075,"quotesActive":false,"action":"followup_sample"}
+{"ts":1781141874331,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.3885,"midAfter60s":0.4075,"quotesActive":false,"action":"followup_sample"}
+{"ts":1781141883654,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.396,"midAfter60s":0.4075,"quotesActive":false,"action":"followup_sample"}
+{"ts":1781141885314,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.3895,"midAfter60s":0.4075,"quotesActive":true,"action":"followup_sample"}
+{"ts":1781141949672,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.4075,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781141950053,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.4155,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781141951559,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.4095,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781141951716,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.398,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781141898587,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.395,"midAfter60s":0.395,"quotesActive":false,"action":"followup_sample"}
+{"ts":1781141999743,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.3805,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 13189ms > 10000ms"}
+{"ts":1781141949672,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.4075,"midAfter60s":0.3805,"quotesActive":false,"action":"followup_sample"}
+{"ts":1781141950053,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.4155,"midAfter60s":0.3805,"quotesActive":false,"action":"followup_sample"}
+{"ts":1781141951559,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.4095,"midAfter60s":0.3805,"quotesActive":false,"action":"followup_sample"}
+{"ts":1781141951716,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.398,"midAfter60s":0.3805,"quotesActive":false,"action":"followup_sample"}
+{"ts":1781142064755,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.3885,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 10375ms > 10000ms"}
+{"ts":1781142072772,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.394,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781142119764,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.397,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 10136ms > 10000ms"}
+{"ts":1781142072772,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.394,"midAfter60s":0.3915,"quotesActive":true,"action":"followup_sample"}
+{"ts":1781142154771,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.391,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 11726ms > 10000ms"}
+{"ts":1781142184776,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.391,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 12270ms > 10000ms"}
+{"ts":1781142199776,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.3905,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 13563ms > 10000ms"}
+{"ts":1781142210164,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.3815,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781142219700,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.385,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781142210164,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.3815,"midAfter60s":0.3825,"quotesActive":true,"action":"followup_sample"}
+{"ts":1781142219700,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.385,"midAfter60s":0.3825,"quotesActive":true,"action":"followup_sample"}
+{"ts":1781142279789,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.3825,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 10014ms > 10000ms"}
+{"ts":1781142334798,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.3825,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 10040ms > 10000ms"}
+{"ts":1781142354801,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.3825,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 10186ms > 10000ms"}
+{"ts":1781142394809,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.3815,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 11110ms > 10000ms"}
+{"ts":1781142424814,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.3815,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 10472ms > 10000ms"}
+{"ts":1781142479824,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.3765,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 10248ms > 10000ms"}
+{"ts":1781142644880,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.3775,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 11584ms > 10000ms"}
+{"ts":1781142664885,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.379,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 14811ms > 10000ms"}
+{"ts":1781142694892,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.3795,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 11159ms > 10000ms"}
+{"ts":1781142734900,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.3795,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 11253ms > 10000ms"}
+{"ts":1781142734900,"market":"Will the Carolina Hurricanes win the 2026 NHL Stanley Cup?","trigger":"stale_feed","midBefore":0.575,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 10394ms > 10000ms"}
+{"ts":1781142754905,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.3795,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 14694ms > 10000ms"}
+{"ts":1781142809913,"market":"Will the Carolina Hurricanes win the 2026 NHL Stanley Cup?","trigger":"stale_feed","midBefore":0.575,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 14419ms > 10000ms"}
+{"ts":1781142959939,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.3645,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 11771ms > 10000ms"}
+{"ts":1781143079532,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.358,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781143094980,"market":"Will the Vegas Golden Knights win the 2026 NHL Stanley Cup?","trigger":"stale_feed","midBefore":0.4175,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 12446ms > 10000ms"}
+{"ts":1781143129986,"market":"Will the Carolina Hurricanes win the 2026 NHL Stanley Cup?","trigger":"stale_feed","midBefore":0.575,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 11872ms > 10000ms"}
+{"ts":1781143079532,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.358,"midAfter60s":0.3515,"quotesActive":true,"action":"followup_sample"}
+{"ts":1781143139987,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.3515,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 10453ms > 10000ms"}
+{"ts":1781143169994,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.3515,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 14046ms > 10000ms"}
+{"ts":1781143189998,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.356,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 12042ms > 10000ms"}
+{"ts":1781143205003,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.356,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 10768ms > 10000ms"}
+{"ts":1781143275015,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.356,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 11493ms > 10000ms"}
+{"ts":1781143295019,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.3555,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 10646ms > 10000ms"}
+{"ts":1781143335026,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.3585,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 13620ms > 10000ms"}
+{"ts":1781143350029,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.3585,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 12634ms > 10000ms"}
+{"ts":1781143395040,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.3585,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 11978ms > 10000ms"}
+{"ts":1781143435052,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.3585,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 10374ms > 10000ms"}
+{"ts":1781143465058,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.3585,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 13611ms > 10000ms"}
+{"ts":1781143505067,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.3585,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 10263ms > 10000ms"}
+{"ts":1781143560078,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.3585,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 10238ms > 10000ms"}
+{"ts":1781143590082,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.3585,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 11197ms > 10000ms"}
+{"ts":1781143610086,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.3585,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 12349ms > 10000ms"}
+{"ts":1781143630139,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.3585,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 13820ms > 10000ms"}
+{"ts":1781143670179,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.3585,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 13644ms > 10000ms"}
+{"ts":1781143710183,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.3585,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 12001ms > 10000ms"}
+{"ts":1781143740187,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.3585,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 11084ms > 10000ms"}
+{"ts":1781143770194,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.3655,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 14146ms > 10000ms"}
+{"ts":1781143805205,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.369,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 13087ms > 10000ms"}
+{"ts":1781143820206,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.369,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 10501ms > 10000ms"}
+{"ts":1781143835208,"market":"Will the Vegas Golden Knights win the 2026 NHL Stanley Cup?","trigger":"stale_feed","midBefore":0.4175,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 10363ms > 10000ms"}
+{"ts":1781143840053,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.3705,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781143844959,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.3695,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781143849972,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker","midBefore":0.3695,"midAfter60s":null,"quotesActive":true,"action":"cancelAll + cooldown 30000ms"}
+{"ts":1781143840053,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.3705,"midAfter60s":0.3785,"quotesActive":true,"action":"followup_sample"}
+{"ts":1781143844959,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.3695,"midAfter60s":0.3785,"quotesActive":true,"action":"followup_sample"}
+{"ts":1781143849972,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"circuit_breaker_60s_followup","midBefore":0.3695,"midAfter60s":0.3785,"quotesActive":true,"action":"followup_sample"}
+{"ts":1781143915222,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.3785,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 11470ms > 10000ms"}
+{"ts":1781143945228,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.3785,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 12724ms > 10000ms"}
+{"ts":1781143995237,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.374,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 11245ms > 10000ms"}
+{"ts":1781144015241,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.374,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 10809ms > 10000ms"}
+{"ts":1781144045245,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.374,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 14022ms > 10000ms"}
+{"ts":1781144065249,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.3725,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 13070ms > 10000ms"}
+{"ts":1781144095305,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.372,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 11873ms > 10000ms"}
+{"ts":1781144120309,"market":"Will the Vegas Golden Knights win the 2026 NHL Stanley Cup?","trigger":"stale_feed","midBefore":0.4175,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 12647ms > 10000ms"}
+{"ts":1781144135311,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.3685,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 12103ms > 10000ms"}
+{"ts":1781144290420,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.37,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 10076ms > 10000ms"}
+{"ts":1781144305421,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.37,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 14439ms > 10000ms"}
+{"ts":1781144345429,"market":"Will the New York Knicks win the 2026 NBA Finals?","trigger":"stale_feed","midBefore":0.37,"midAfter60s":null,"quotesActive":true,"action":"pull_quotes — silent 13795ms > 10000ms"}

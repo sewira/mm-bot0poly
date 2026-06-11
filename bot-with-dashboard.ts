@@ -353,6 +353,22 @@ function canTrade(): boolean {
   return true;
 }
 
+// Session trades array for history
+const sessionTrades: TradeRecord[] = [];
+
+function recordTradeToHistory(strategy: TradeRecord['strategy'], market: string, side: 'BUY' | 'SELL', size: number, price: number, profit: number) {
+  sessionTrades.push({
+    id: `trade-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+    timestamp: new Date().toISOString(),
+    strategy,
+    market,
+    side,
+    size,
+    price,
+    profit,
+  });
+}
+
 // 🔴 FIXED: Enhanced trade recording with win tracking
 function recordTrade(profit: number, strategy: string) {
   state.tradesExecuted++;
@@ -1218,12 +1234,14 @@ async function setupMarketMaking(sdk: PolymarketSDK) {
 
   mmService.on('fill', (data: { market: string; side: string; price: number; size: number; inventoryAfter: number; spreadPnL: number; rebateIncome: number }) => {
     log('TRADE', `MM Fill: ${data.side} ${data.market} @ ${data.price.toFixed(3)} (inv: ${data.inventoryAfter}, spread: $${data.spreadPnL.toFixed(4)}, rebate: $${data.rebateIncome.toFixed(4)})`);
+    const profit = data.spreadPnL + data.rebateIncome;
     if (CONFIG.dryRun) {
       // Maker orders: no slippage, no competition, no gas — just spread capture + rebate
-      const profit = data.spreadPnL + data.rebateIncome;
       simulateTrade(profit, 'marketMaking',
         `MM ${data.side} ${data.market} [spread: $${data.spreadPnL.toFixed(4)}, rebate: $${data.rebateIncome.toFixed(4)}]`);
     }
+    // Record to session history (works in both dry-run and live)
+    recordTradeToHistory('marketMaking', data.market, data.side as 'BUY' | 'SELL', data.size, data.price, profit);
     updateMMState();
     updateDashboard();
   });
@@ -1687,6 +1705,14 @@ async function main() {
 
   process.on('SIGINT', async () => {
     console.log('\n\nShutting down...');
+
+    // Save session history
+    if (sessionTrades.length > 0 || state.tradesExecuted > 0) {
+      const session = createSessionFromState(state.startTime, state, CONFIG, sessionTrades);
+      addSession(session);
+      console.log(`[Session] Saved ${sessionTrades.length} trades to history`);
+    }
+
     sdk.realtime.stopRecording();
     if (mmService) await mmService.stop();
     if (arbService) await arbService.stop();

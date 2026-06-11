@@ -2,18 +2,31 @@
 name: polymarket-strategy
 description: >
   Domain knowledge for the Polymarket trading bot — the 2026 fee model and exact formula,
-  per-strategy edge classification, market-making design rules (inventory skew, fill-to-mark),
-  backtest validation requirements (anti-look-ahead, walk-forward), and go-live/kill gates.
-  Load whenever working on this bot's strategies: arbitrage, market making, dip-arb,
-  smart-money, expiry/convergence, fee/slippage/cost modeling, simulation realism, or
-  any decision about whether a strategy is profitable after costs.
+  per-strategy edge classification, market-making v2 design principles (microprice, convex
+  inventory skew, circuit breaker, fill-to-mark), the four-log record system, backtest
+  validation requirements (anti-look-ahead, walk-forward), and go-live/kill gates.
+  Load whenever working on this bot's strategies, fee/slippage/cost modeling, simulation
+  realism, grading/review rituals, or any decision about profitability after costs.
 ---
 
 # Polymarket Strategy Knowledge
 
+**Current stage: pre-validation.** Nothing live. (mm-librarian updates this line on gate transitions.)
+
 The single organizing idea: this is **one business — be the patient, subsidized liquidity
 provider on markets nobody is fighting over.** Edge that survives this venue is maker-side
 liquidity provision on low-toxicity markets, not latency races.
+
+## 0. Authority order (on any conflict)
+
+```
+logs/data > 03_MM_STRATEGY_V2.md > 02_VALIDATION_AND_TESTING.md > 00_MASTER_PLAN.md
+        > 01_MARKET_MAKING_SPEC.md (quoting sections superseded by 03) > this skill
+        > agent prompts > anyone's memory
+```
+
+This skill holds durable PRINCIPLES. Tunable numbers, thresholds, and config live in the
+docs and `bot-config.ts` — read them fresh; never cite a parameter value from this file.
 
 ## 1. Fee model (the fact that reframes everything)
 
@@ -23,104 +36,120 @@ Polymarket is NOT fee-free. Dynamic **taker** fee:
 fee = C × feeRate × p × (1 − p)        # peaks at share price p = 0.50
 ```
 
-| Category          | Taker feeRate     | Maker                     |
-| ----------------- | ----------------- | ------------------------- |
-| Crypto            | 1.80% (highest)   | 0%                        |
-| Economics         | 1.50%             | 0%                        |
-| Mentions          | ~1.56%            | 0%                        |
-| Culture / Weather | 1.25%             | 0%                        |
-| Finance           | 1.00%             | 0% + **50% maker rebate** |
-| Politics / Tech   | 1.00%             | 0%                        |
-| Sports            | 0.75%             | 0%                        |
-| Geopolitics       | **0% (fee-free)** | 0%                        |
+Reference rates (Fee Structure V2, effective 2026-03-30 — ALWAYS confirm current values
+on Polymarket's official fee page before any sizing decision; rates change):
+Crypto feeRate 0.07 (20% maker rebate) > Economics/Culture/Weather/Other 0.05 (25%)
+> Finance/Politics/Tech/Mentions 0.04 (25%; Finance: **50%**) > Sports 0.03 (25%)
+> **Geopolitics 0.00 (fee-free, no rebate)**. Makers pay 0 taker fee everywhere.
+**Every fee-bearing category now pays a maker rebate** (not just Finance).
+**Grandfathering:** fees/rebates apply only to markets deployed on or after the activation
+date (2026-03-30); pre-existing markets are unaffected. (Rates verified 2026-06-10.)
+Gas on Polygon approx $0.003–0.005/tx.
 
-> Always confirm current rates against Polymarket's official fee page before sizing.
-
-Implications: (1) makers pay zero and earn rebates — every market order pays a fee a limit
-order would earn; (2) fees are highest exactly where latency-arb lives (crypto, near $0.50),
-by design. Gas on Polygon ≈ $0.003–0.005/tx.
+Implications: (1) every market order pays a fee a limit order would earn; (2) fees peak
+exactly where latency-arb lives (crypto, near $0.50); (3) **the entire structural edge is
+a venue policy choice — a rebate/fee change is a regime-kill event requiring re-validation
+from the dry-run stage (03 §9 kill criteria).**
 
 ## 2. Edge map (risk-adjusted, net of costs)
 
-| Strategy             | Edge class | Decision          | Why                                                                                                      |
-| -------------------- | ---------- | ----------------- | -------------------------------------------------------------------------------------------------------- |
-| Market Making        | Moderate   | **BUILD (core)**  | maker rebate + spread on low-toxicity markets; only structural edge                                      |
-| Convergence (expiry) | Weak       | BUILD (small)     | real but thin risk-premium; maker entry = fee-free; negative skew → diversify across uncorrelated events |
-| Binary Arb           | Weak       | KEEP maker-only   | real math, but post resting orders; don't race takers; learning not profit center                        |
-| Smart Money          | Weak/None  | CONVERT to signal | leaderboards = survivorship bias; always last in; use as market-selection feature only                   |
-| Multi-Outcome Arb    | Weak       | PARK              | leg risk across N non-atomic books > edge                                                                |
-| DipArb               | None/Weak  | **KILL**          | fee-targeted crypto, latency-doomed, Binance↔Chainlink basis risk                                        |
-| Direct Trading       | None       | **KILL**          | no demonstrated predictive signal + unenforced stops                                                     |
+| Strategy             | Edge class | Decision          | Why |
+| -------------------- | ---------- | ----------------- | --- |
+| Market Making        | Moderate   | **BUILD (core)**  | maker rebate + spread on low-toxicity markets; only structural edge |
+| Convergence (expiry) | Weak       | BUILD (small, after MM green) | thin risk-premium; maker entry fee-free; negative skew → per-cluster caps mandatory |
+| Binary Arb           | Weak       | KEEP maker-only   | post resting orders; learning, not profit center |
+| Smart Money          | Weak/None  | CONVERT to signal | survivorship-biased leaderboards; always last in; market-selection feature only |
+| Multi-Outcome Arb    | Weak       | PARK              | leg risk across N non-atomic books > edge |
+| DipArb               | None       | **KILLED**        | fee-targeted crypto, latency-doomed, Binance↔Chainlink basis risk |
+| Direct Trading       | None       | **KILLED**        | no demonstrated signal + unenforced stops |
 
 When classifying any strategy: name the counterparty and why they leave money available.
 If you can't, the edge is probably noise.
 
-## 3. Market making rules (the one book worth building)
+## 3. Market making v2 principles (full spec: 03 §1–§5)
 
-**Selection (most of the edge):** geopolitics (fee-free) > finance (50% rebate) > liquid
-politics/sports. Never crypto, never breaking-news. Mid in [0.20, 0.80]. Adequate depth both
-sides. Not within `minHoursToResolution`. Blacklist markets with adverse fill-to-mark drift.
+**PnL priority order — build and tune in this order, never optimize a lower tier while
+a higher one is unmeasured:**
+selection & schedule > event-day survival > fill quality > quote placement > spread math.
 
-**Quoting — inventory-skewed reservation price, NOT mid±spread:**
+**Selection (most of the edge):** fee-free geopolitics > finance (50% rebate) > liquid
+politics/sports/economics (25% rebate each). Never crypto, never breaking-news. Price band per doc; tighten near
+expiry. Per-market per-hour drift schedules once data exists. Capital allocated
+continuously by edgeScore, not binary blacklists (blacklist remains the hard floor).
 
-```
-mid         = (bestBid + bestAsk)/2
-inv         = q / qMax                      # signed normalized inventory
-reservation = mid - inv * skewWidth         # lean toward flattening
-halfSpread  = baseHalfSpread + volTerm      # widen in vol / thin books
-bid = roundPrice(reservation - halfSpread)
-ask = roundPrice(reservation + halfSpread)
-```
+**Quoting:** center on **microprice** (depth-weighted), not mid. **Convex** inventory
+skew (gentle near flat, aggressive near cap). **Asymmetric size** as the second
+flattening lever. Per-category **rebate-aware spread floors** (every fee-bearing category
+has a rebate; rebate markets support tighter floors). Queue-position awareness: deep-in-queue at an eroding level → cancel;
+prefer fronting a new tick over joining a crowd.
 
-At caps: `q≥+qMax` → bids only-off (ask only); `q≤−qMax` → ask off (bid only).
+**Requote = event-driven** (book tick / off-top / inventory band), never a timer.
+**News circuit breaker:** mid jump beyond threshold within window → cancelAll + cooldown.
+During real news the correct spread is infinite. **Stale-feed guard:** silent feed →
+pull quotes. Breaker + guard must exist before any live order path.
 
-**Requote = event-driven** (orderbook tick / off-top / inventory band crossed), never a 5–10s
-timer (you get picked off between ticks).
+**Hard caps enforced in the order path, not config-only:** per-market inventory
+(one-sided quoting at cap), portfolio gross, per-event-cluster, kill switch.
 
-**Hard caps (enforced, not config-only):** per-market `maxInventoryShares`, portfolio
-`maxGrossExposureUsd`, per-event-cluster cap. Kill switch flattens + blacklists on excess loss.
+**Live-or-die metric — fill-to-mark drift:** sample mid at +5/15/30s after each fill.
+`driftBps = (mid(t+Δ) − fillPrice)/fillPrice × 10000 × sign(side)`. Positive = the flow
+feeds you; negative = you are the product. The +15s per-market mean ± SE is the god
+metric for routing, grading, and killing.
 
-**Live-or-die metric — fill-to-mark drift:** after each fill, sample mid at +5/15/30s.
-`driftBps = (mid(t+Δ) − fillPrice)/fillPrice × 10000 × sign(side)`. Positive = non-toxic flow
-(add capital); negative = adverse selection (widen/slow/blacklist).
+**PnL = realized spread + rebate (modeled, then reconciled vs realized) + inventory MtM
++ resolution PnL − flatten fees.**
 
-**PnL = realized spread + modeled rebate + inventory MtM + resolution PnL − flatten fees.**
+## 4. The record system (03 §8 — institutional memory)
 
-## 4. Backtest validation (non-negotiable invariants)
+Four append-only JSONL logs: **fills** (with queuePosAtPost, hourBucket, drift backfill),
+**daily snapshots** (every row tagged configHash + regime + stage — never a number
+without its context), **decision journal** (every human decision AT decision time, with
+expected effect and a review date; NO-CHANGE entries are first-class), **incidents**
+(every breaker/kill/outage + the next 60s of market action).
+Rules: no UPDATE path — history is corrected by new entries, never edits. Full config
+saved per hash. Review cadence: daily 3-liner / weekly drift / monthly written verdict
+(SCALE/HOLD/RESTRICT/KILL + a falsifiable prediction graded next month).
 
-- **Fix the simulator first:** add real per-category taker fee to every taker leg; arb pays it
-  twice; makers pay 0 and accrue rebate. Until done, all PnL is fiction.
-- **Record the right feeds:** arb/MM market orderbooks (currently the arb-specific WS
-  connections aren't recorded) — without them the arb backtest is impossible.
-- **Anti-look-ahead:** decision at time t uses only state with ts ≤ t; resolution outcome never
-  readable by entry logic; maker fills only when book trades through the price; taker fills walk
-  the book (not best price for full size).
-- **Walk-forward / out-of-sample:** tune on train, measure on held-out validate; never report
-  in-sample PnL as expected performance.
-- **Cap parameters:** a 2–4 week sample cannot support a 4-D grid. Tune ≤2 params at a time,
-  prefer a flat profit plateau over a peak. Watch survivorship/selection/look-ahead/overfit.
+## 5. Backtest validation (non-negotiable invariants)
 
-## 5. Go-live gates (all must hold) & kill criteria
+- **Anti-look-ahead:** decision at t uses only state ts ≤ t; resolution never readable
+  by entry logic; maker fills only when the book trades THROUGH the price; taker fills
+  walk the book level by level. Assertions in code, not comments.
+- **Walk-forward / out-of-sample:** tune on train, measure on held-out validate; never
+  report in-sample PnL as expectation. Segment by fee regime — never pool across one.
+- **Cap parameters:** tune ≤2 at a time; prefer flat profit plateaus over peaks.
+- **Statistical honesty:** <100 fills per market = UNPROVEN = untradeable. Drift green
+  requires mean − 1×SE above threshold. One-week edges in multi-week windows are noise.
+- Traps checklist: survivorship, selection, look-ahead, overfitting, regime change.
 
-**Gates:** (1) fees + rebates in simulator; (2) walk-forward, robust params; (3) small param
-count; (4) dry-run fill-to-mark ≥ 0 on targets; (5) hard caps coded & tested.
+## 6. Gates & kill criteria (binary — partial green is red)
 
-**Kill:** 30-day net PnL negative → size to zero; persistent adverse drift → blacklist/exit;
-realized rebates ≪ model → re-validate.
+**Stages:** backtest → 2wk dry-run → small pilot (measure, not earn) → stepped scaling.
+**Go-live gates (all):** fees+rebates in simulator; walk-forward robust params; small
+param count; dry-run drift ≥ 0 on targets; hard caps coded & tested.
+**Kill:** 30-day net PnL negative → size zero; persistent adverse drift → restrict then
+blacklist; realized rebates ≪ model → halt scaling, re-validate; **regime change →
+full stop + re-validate.** If the pilot is red across markets, the answer is STOP, not
+tune — the problem is the flow, not the math (03 §10).
 
-## 6. Key files in this repo
+## 7. Key files in this repo
 
 - `bot-with-dashboard.ts` — strategy setup + `simulateRealisticTrade()` + dashboard
-- `src/services/arbitrage-service.ts`, `dip-arb-service.ts`, `smart-money-service.ts`
-- `src/services/realtime-service-v2.ts` — WS feeds + where recording belongs
+- `src/services/realtime-service-v2.ts` — WS feeds + recording path
 - `src/services/trading-service.ts` — `createLimitOrder` / `cancelAll` / `getOpenOrders`
 - `src/services/market-service.ts` — `getProcessedOrderbook`
 - `src/utils/price-utils.ts` — `checkArbitrage`, `roundPrice`
 - `bot-config.ts` — config + position sizing
+- `logs/` — fills / snapshots / journal / incidents / configs
 
-## Companion docs
+## Companion docs & agents
 
-`00_MASTER_PLAN.md`, `01_MARKET_MAKING_SPEC.md`, `02_VALIDATION_AND_TESTING.md` hold the full plan.
+Docs: `00_MASTER_PLAN.md`, `01_MARKET_MAKING_SPEC.md` (quoting superseded by 03),
+`02_VALIDATION_AND_TESTING.md`, `03_MM_STRATEGY_V2.md` (current authority).
+Agents: mm-strategist (strategy verdicts) · mm-builder (implementation) · mm-grader
+(metrics, gates) · mm-reviewer (rituals, journal) · mm-librarian (sync — sole editor
+of this file) · polymarket-quant (red-team code audit, read-only).
 
-Posture: skeptical proprietary-desk reviewer. Never assume a strategy works. Quantify, net of
-costs, and refuse to greenlight capital until the gates pass.
+Posture: skeptical proprietary-desk. Never assume a strategy works. Quantify, net of
+costs, and refuse to greenlight capital until the gates pass. Killing cleanly on the
+pre-committed criteria is a success mode.

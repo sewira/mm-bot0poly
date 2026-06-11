@@ -14,7 +14,7 @@ const __dirname = dirname(__filename);
 export interface TradeRecord {
   id: string;
   timestamp: string;
-  strategy: 'smartMoney' | 'arbitrage' | 'dipArb' | 'direct';
+  strategy: 'smartMoney' | 'arbitrage' | 'dipArb' | 'direct' | 'marketMaking';
   market: string;
   side: 'BUY' | 'SELL';
   size: number;
@@ -44,6 +44,7 @@ export interface SessionSummary {
     arbitrage: { trades: number; profit: number };
     dipArb: { trades: number; profit: number };
     direct: { trades: number; profit: number };
+    marketMaking: { trades: number; profit: number };
   };
   walletPerformance: {
     wallet: string;
@@ -217,22 +218,27 @@ export function createSessionFromState(
   })).sort((a, b) => b.profit - a.profit);
   
   // Calculate strategy profits (estimated from trade counts if no detailed data)
+  const mmTrades = trades.filter(t => t.strategy === 'marketMaking');
   const strategyStats = {
-    smartMoney: { 
-      trades: state.smartMoneyTrades, 
-      profit: trades.filter(t => t.strategy === 'smartMoney').reduce((s, t) => s + t.profit, 0) 
+    smartMoney: {
+      trades: state.smartMoneyTrades,
+      profit: trades.filter(t => t.strategy === 'smartMoney').reduce((s, t) => s + t.profit, 0)
     },
-    arbitrage: { 
-      trades: state.arbTrades, 
-      profit: state.arbProfit 
+    arbitrage: {
+      trades: state.arbTrades,
+      profit: state.arbProfit
     },
-    dipArb: { 
-      trades: state.dipArbTrades, 
-      profit: trades.filter(t => t.strategy === 'dipArb').reduce((s, t) => s + t.profit, 0) 
+    dipArb: {
+      trades: state.dipArbTrades,
+      profit: trades.filter(t => t.strategy === 'dipArb').reduce((s, t) => s + t.profit, 0)
     },
-    direct: { 
-      trades: state.directTrades, 
-      profit: trades.filter(t => t.strategy === 'direct').reduce((s, t) => s + t.profit, 0) 
+    direct: {
+      trades: state.directTrades,
+      profit: trades.filter(t => t.strategy === 'direct').reduce((s, t) => s + t.profit, 0)
+    },
+    marketMaking: {
+      trades: mmTrades.length,
+      profit: mmTrades.reduce((s, t) => s + t.profit, 0),
     },
   };
   

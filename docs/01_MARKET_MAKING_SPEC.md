@@ -1,5 +1,7 @@
 # Market Making Spec — the one book worth building
 
+> **SUPERSEDED (2026-06-10):** The quoting logic, spread math, and config shape in this file are superseded by `docs/03_MM_STRATEGY_V2.md`. Market selection filters, risk caps, and the fill-to-mark instrumentation concept originated here and remain valid but are now specified authoritatively in 03. Read 03 for current strategy; keep this file as historical context only.
+
 This replaces the naive `mid ± halfSpread` / 5–10s timer design. Drop-in target: `setupMarketMaking()` in `bot-with-dashboard.ts`, config in `bot-config.ts`, orderbook from `RealtimeServiceV2`, orders via `TradingService.createLimitOrder()` / `cancelAll()`, tick snapping via `roundPrice()` (`src/utils/price-utils.ts`).
 
 The edge is **maker rebate + spread on low-toxicity markets**, NOT speed. You win by *selection and inventory discipline*, not by being fast.

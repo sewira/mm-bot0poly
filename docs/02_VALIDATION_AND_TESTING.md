@@ -15,7 +15,7 @@ function takerFee(notionalShares: number, price: number, feeRate: number): numbe
 }
 ```
 
-- Map category → feeRate (Crypto 1.80%, Economics 1.50%, Finance/Politics/Tech 1.00%, Sports 0.75%, Geopolitics 0%, etc.). Confirm against the official fee page.
+- Map category → feeRate (Crypto 0.07, Economics 0.05, Culture/Weather/Other 0.05, Finance/Politics/Tech/Mentions 0.04, Sports 0.03, Geopolitics 0.00). All fee-bearing categories pay maker rebates (Finance 50%, Crypto 20%, others 25%). Confirm against the official fee page — rates last verified 2026-06-10 (Fee Structure V2, effective 2026-03-30).
 - Charge it on **every taker leg**. Arb pays it **twice** (both legs taker). Maker orders pay **zero** and *accrue a rebate* (model separately).
 - Add a dashboard line: `rawPnl`, `adjPnl (incl. fees)`, `realism = adj/raw`. If realism is wildly < 1 for a strategy, that strategy is fee-dead.
 

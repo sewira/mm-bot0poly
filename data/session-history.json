@@ -1,0 +1,122 @@
+{
+  "sessions": [
+    {
+      "id": "session-1781140597898",
+      "startTime": "2026-06-11T01:16:37.898Z",
+      "endTime": "2026-06-11T02:27:25.337Z",
+      "durationMs": 4247439,
+      "totalPnL": 0.27354061250000067,
+      "startingBalance": 10000,
+      "endingBalance": 10000.2735406125,
+      "totalTrades": 6,
+      "wins": 6,
+      "losses": 0,
+      "winRate": 100,
+      "avgProfitPerTrade": 0.045590102083333445,
+      "largestWin": 0.06612987500000059,
+      "largestLoss": 0,
+      "strategyStats": {
+        "smartMoney": {
+          "trades": 0,
+          "profit": 0
+        },
+        "arbitrage": {
+          "trades": 0,
+          "profit": 0
+        },
+        "dipArb": {
+          "trades": 0,
+          "profit": 0
+        },
+        "direct": {
+          "trades": 0,
+          "profit": 0
+        },
+        "marketMaking": {
+          "trades": 6,
+          "profit": 0.27354061250000067
+        }
+      },
+      "walletPerformance": [],
+      "onChainOps": {
+        "splits": 0,
+        "merges": 0,
+        "redeems": 0,
+        "swaps": 0
+      },
+      "trades": [
+        {
+          "id": "trade-1781140799729-dsuj7t",
+          "timestamp": "2026-06-11T01:19:59.729Z",
+          "strategy": "marketMaking",
+          "market": "Will the New York Knicks win the 2026 NBA Finals?",
+          "side": "BUY",
+          "size": 10,
+          "price": 0.469,
+          "profit": 0.06612987500000059
+        },
+        {
+          "id": "trade-1781141039900-gw74fs",
+          "timestamp": "2026-06-11T01:23:59.900Z",
+          "strategy": "marketMaking",
+          "market": "Will the New York Knicks win the 2026 NBA Finals?",
+          "side": "BUY",
+          "size": 8,
+          "price": 0.433,
+          "profit": 0.03655110000000001
+        },
+        {
+          "id": "trade-1781141222712-myt5h1",
+          "timestamp": "2026-06-11T01:27:02.712Z",
+          "strategy": "marketMaking",
+          "market": "Will the New York Knicks win the 2026 NBA Finals?",
+          "side": "SELL",
+          "size": 14,
+          "price": 0.436,
+          "profit": 0.06403320000000003
+        },
+        {
+          "id": "trade-1781141274647-bvp5n0",
+          "timestamp": "2026-06-11T01:27:54.647Z",
+          "strategy": "marketMaking",
+          "market": "Will the New York Knicks win the 2026 NBA Finals?",
+          "side": "SELL",
+          "size": 11,
+          "price": 0.442,
+          "profit": 0.033912450000000004
+        },
+        {
+          "id": "trade-1781142823952-7b72jv",
+          "timestamp": "2026-06-11T01:53:43.952Z",
+          "strategy": "marketMaking",
+          "market": "Will the New York Knicks win the 2026 NBA Finals?",
+          "side": "SELL",
+          "size": 9,
+          "price": 0.374,
+          "profit": 0.03533895000000001
+        },
+        {
+          "id": "trade-1781142944902-u3nuhk",
+          "timestamp": "2026-06-11T01:55:44.902Z",
+          "strategy": "marketMaking",
+          "market": "Will the New York Knicks win the 2026 NBA Finals?",
+          "side": "BUY",
+          "size": 13,
+          "price": 0.363,
+          "profit": 0.0375750375
+        }
+      ],
+      "dryRun": true,
+      "strategies": {
+        "smartMoney": false,
+        "arbitrage": false,
+        "dipArb": false,
+        "direct": false
+      }
+    }
+  ],
+  "totalSessions": 1,
+  "totalProfit": 0.27354061250000067,
+  "totalTrades": 6,
+  "overallWinRate": 100
+}

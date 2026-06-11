@@ -227,12 +227,14 @@ export function HistoryPage({ onBack }: HistoryPageProps) {
                 </div>
                 <div className="panel-body space-y-3">
                   {[
-                    { name: 'Smart Money', key: 'smartMoney', color: 'purple', enabled: selectedSession.strategies.smartMoney },
-                    { name: 'Arbitrage', key: 'arbitrage', color: 'blue', enabled: selectedSession.strategies.arbitrage },
-                    { name: 'DipArb', key: 'dipArb', color: 'green', enabled: selectedSession.strategies.dipArb },
-                    { name: 'Direct Trading', key: 'direct', color: 'yellow', enabled: selectedSession.strategies.direct },
+                    { name: 'Market Making', key: 'marketMaking', color: 'purple', enabled: true },
+                    { name: 'Arbitrage', key: 'arbitrage', color: 'blue', enabled: selectedSession.strategies?.arbitrage },
+                    { name: 'Smart Money', key: 'smartMoney', color: 'cyan', enabled: selectedSession.strategies?.smartMoney },
+                    { name: 'DipArb', key: 'dipArb', color: 'green', enabled: selectedSession.strategies?.dipArb },
+                    { name: 'Direct Trading', key: 'direct', color: 'yellow', enabled: selectedSession.strategies?.direct },
                   ].map((strategy) => {
                     const stats = selectedSession.strategyStats[strategy.key as keyof typeof selectedSession.strategyStats];
+                    if (!stats) return null;
                     return (
                       <div key={strategy.key} className={`flex items-center justify-between p-3 rounded-xl bg-poly-dark/50 ${!strategy.enabled ? 'opacity-50' : ''}`}>
                         <div className="flex items-center gap-3">

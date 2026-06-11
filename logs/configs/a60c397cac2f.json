@@ -1,0 +1,63 @@
+{
+  "categories": [
+    "geopolitics",
+    "finance",
+    "politics",
+    "sports"
+  ],
+  "excludeCategories": [
+    "crypto"
+  ],
+  "minVolume24h": 500,
+  "minDepthShares": 10,
+  "priceBand": [
+    0.2,
+    0.8
+  ],
+  "minHoursToResolution": 12,
+  "baseHalfSpreadTicks": 2,
+  "minSpreadTicks": 1,
+  "minSpreadTicksByCategory": {
+    "geopolitics": 3,
+    "finance": 1,
+    "politics": 2,
+    "sports": 2,
+    "tech": 2,
+    "economics": 2,
+    "culture": 2,
+    "weather": 2,
+    "mentions": 2,
+    "crypto": 3,
+    "other": 2
+  },
+  "skewWidth": 0.02,
+  "baseSize": 10,
+  "orderSize": 10,
+  "maxInventoryShares": 50,
+  "maxGrossExposureUsd": 100,
+  "maxClusterExposureUsd": 200,
+  "requoteThresholdTicks": 1,
+  "breakerTicks": 5,
+  "breakerWindowMs": 2000,
+  "cooldownMs": 30000,
+  "staleFeedMs": 10000,
+  "killSwitchLossPct": 0.1,
+  "volWindowMs": 60000,
+  "jumpTermTicks": 3,
+  "fillToMarkDelaysMs": [
+    5000,
+    15000,
+    30000
+  ],
+  "minFillsPerBucket": 30,
+  "toxicDriftThresholdBps": 0,
+  "minFillsForEdgeScore": 100,
+  "queueCancelThreshold": 0.8,
+  "rebateDivergenceThreshold": 0.2,
+  "dynamicSpreadFloors": true,
+  "dryRun": true,
+  "maxMarkets": 3,
+  "regime": "2026-dynamic-v1",
+  "stage": "dry-run",
+  "logsDir": ""
+}

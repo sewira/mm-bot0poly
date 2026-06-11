@@ -219,6 +219,7 @@ export interface SessionSummary {
     arbitrage: { trades: number; profit: number };
     dipArb: { trades: number; profit: number };
     direct: { trades: number; profit: number };
+    marketMaking?: { trades: number; profit: number };
   };
 
   // Wallet performance (for smart money)

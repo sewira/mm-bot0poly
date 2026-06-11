@@ -41,16 +41,20 @@ export function roundPrice(
   const decimals = ROUNDING_CONFIG[tickSize].price;
   const multiplier = Math.pow(10, decimals);
 
+  // Snap to nearest tick first to neutralize floating-point drift
+  // (e.g. 0.49000000000000005 * 100 = 49.00000000000001 → ceil to 50, wrong)
+  const scaled = Math.round(price * multiplier * 1e8) / 1e8;
+
   let rounded: number;
   switch (direction) {
     case 'floor':
-      rounded = Math.floor(price * multiplier) / multiplier;
+      rounded = Math.floor(scaled) / multiplier;
       break;
     case 'ceil':
-      rounded = Math.ceil(price * multiplier) / multiplier;
+      rounded = Math.ceil(scaled) / multiplier;
       break;
     default:
-      rounded = Math.round(price * multiplier) / multiplier;
+      rounded = Math.round(scaled) / multiplier;
   }
 
   // Clamp to valid price range

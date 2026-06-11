@@ -13,21 +13,20 @@ Polymarket is no longer fee-free. As of 2026 it runs a **dynamic taker-fee** mod
 fee = C × feeRate × p × (1 − p)        # peaks at p = 0.50
 ```
 
-| Category    | Taker feeRate | Maker fee | Notes |
-|-------------|---------------|-----------|-------|
-| Crypto      | 1.80%         | 0%        | also where 15-min latency-arb lives — fee designed to kill it |
-| Economics   | 1.50%         | 0%        | |
-| Mentions    | ~1.56%        | 0%        | |
-| Culture/Weather | 1.25%     | 0%        | |
-| Finance     | 1.00%         | 0% + **50% maker rebate** | best rebate |
-| Politics/Tech | 1.00%       | 0%        | |
-| Sports      | 0.75%         | 0%        | |
-| **Geopolitics** | **0% (fee-free)** | 0% | trade the spread tax-free |
+| Category | feeRate | Maker Rebate Share | Peak Fee /100sh @p=0.50 | Notes |
+|---|---|---|---|---|
+| Crypto | 0.07 | 20% | $1.75 | highest fee; designed to kill latency arb |
+| Economics | 0.05 | 25% | $1.25 | |
+| Culture/Weather/Other | 0.05 | 25% | $1.25 | |
+| Finance/Politics/Tech/Mentions | 0.04 | 25% (Finance: **50%**) | $1.00 | Finance has best rebate |
+| Sports | 0.03 | 25% | $0.75 | |
+| **Geopolitics** | **0.00 (fee-free)** | N/A | $0.00 | trade the spread tax-free |
 
-> Confirm exact current rates against Polymarket's official fee page before sizing. These move.
+> **Grandfathering:** fees only apply to markets deployed on or after the activation date (March 30, 2026). Pre-existing markets are unaffected.
+> Confirm exact current rates against Polymarket's official fee page before sizing. These move. (Fee Structure V2, verified 2026-06-10.)
 
 **Two consequences that drive the whole plan:**
-1. **Makers pay zero and get paid rebates.** Takers pay. So every market order you fire is paying a fee a limit order would *earn*. Flip to maker posture everywhere possible.
+1. **Makers pay zero and get paid rebates on every fee-bearing category.** Takers pay. So every market order you fire is paying a fee a limit order would *earn*. Flip to maker posture everywhere possible. Finance (50% rebate) is the most generous; all other fee-bearing categories pay 25% (crypto: 20%).
 2. **Fees are highest exactly where your two most-built strategies live** (crypto, near $0.50). The house engineered this to kill latency arbitrage. You are the prey.
 
 ---
@@ -37,7 +36,7 @@ fee = C × feeRate × p × (1 − p)        # peaks at p = 0.50
 1. **Your simulator omits taker fees.** `simulateRealisticTrade()` applies 0.5× slippage and 0.7× competition but no explicit fee. Your "realistic" PnL is still fiction, biased optimistic. **You are optimizing against a number that isn't real.** This is the #1 problem — fix before trusting anything.
 2. **No backtester exists.** No parameter (dipThreshold, sumTarget, profitThreshold, spreadBps) has *ever* been validated against history. Every threshold is a guess presented as a setting.
 3. **The arb-specific orderbook feeds aren't even recorded** (your own docs admit it). So the data you're collecting cannot validate the arb strategy. You're recording the wrong thing for half your book.
-4. **DipArb trades the fee-targeted graveyard.** Crypto 15-min markets, 1.80% taker, racing HFT, with Binance-vs-Chainlink basis risk. Structurally doomed.
+4. **DipArb trades the fee-targeted graveyard.** Crypto 15-min markets, highest taker fee (feeRate 0.07), racing HFT, with Binance-vs-Chainlink basis risk. Structurally doomed.
 5. **Direct Trading has no edge** — your own doc says the Binance→PM signal has no demonstrated predictive value. It's a coin flip with unenforced stops (blow-up risk).
 6. **Reactive Smart Money is always last in.** By the time you copy, price moved. Leaderboards are survivorship bias. Positions accumulate with no exit.
 7. **Market making — the one real edge — isn't built**, and the planned design (5–10s timer requote, symmetric `mid ± spread`) is the naive version that gets picked off.
@@ -104,7 +103,7 @@ Measure per-market, rank constantly, route capital by it. This single number dec
 - [ ] Convert Smart Money to a market-selection feature.
 
 **Phase 3 — Scale what survives (week 6+).**
-- [ ] Add finance (50% rebate) + liquid politics once fill-to-mark is positive.
+- [ ] Add finance (50% rebate) + liquid politics/sports/economics (25% rebate each) once fill-to-mark is positive.
 - [ ] Add convergence satellite with event-cluster exposure caps.
 - [ ] Only then revisit multi-outcome arb.
 
