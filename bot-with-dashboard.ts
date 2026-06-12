@@ -151,10 +151,11 @@ let CONFIG = {
     skewWidth: 0.02,
     orderSize: 10,
     maxInventoryShares: 50,
-    maxGrossExposureUsd: 100,
+    maxGrossExposureUsd: 200,
     requoteThresholdTicks: 1,
     maxUnrealizedLossPct: 0.10,
-    maxMarkets: 3,
+    staleFeedMs: 30000,  // 30s — low-volume markets don't update every second
+    maxMarkets: 10,
   },
 
   dryRun: process.env.DRY_RUN !== 'false',
@@ -1416,9 +1417,18 @@ async function main() {
     updateDashboard();
   }
 
-  const sdk = await PolymarketSDK.create({
+  // Create SDK without auto-connecting ws-live-data (MM uses market channel instead)
+  const sdk = new PolymarketSDK({
     privateKey: process.env.POLYMARKET_PRIVATE_KEY,
   });
+  await sdk.initialize();
+  // Only connect ws-live-data if non-MM strategies need it
+  if (CONFIG.smartMoney.enabled || CONFIG.dipArb.enabled) {
+    sdk.connect();
+    await sdk.waitForConnection(10000).catch(() => {
+      log('WARN', 'ws-live-data connection timed out — non-MM strategies may not work');
+    });
+  }
 
   log('INFO', `Wallet: ${sdk.tradingService.getAddress()}`);
 
