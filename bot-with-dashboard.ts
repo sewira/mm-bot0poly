@@ -146,7 +146,7 @@ let CONFIG = {
     minDepthShares: 10,
     priceBand: [0.10, 0.90] as [number, number],
     minHoursToResolution: 12,
-    baseHalfSpreadTicks: 2,
+    baseHalfSpreadTicks: 1,
     minSpreadTicks: 1,
     skewWidth: 0.02,
     orderSize: 10,
