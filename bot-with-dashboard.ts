@@ -683,7 +683,10 @@ let dipArbLeg1Cost = 0;
 let dipArbTotalCost = 0;
 
 async function setupDipArb(sdk: PolymarketSDK) {
-  // Always setup listeners provided by this function
+  if (!CONFIG.dipArb.enabled) {
+    log('ARB', 'DipArb disabled — skipping setup');
+    return;
+  }
   log('ARB', 'Setting up DipArb Service...');
 
   // Configure the DipArb service
