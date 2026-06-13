@@ -142,7 +142,7 @@ let CONFIG = {
     enabled: process.env.MM_ENABLED === 'true',
     categories: ['geopolitics', 'finance', 'politics', 'sports'] as FeeCategory[],
     excludeCategories: ['crypto'] as FeeCategory[],
-    minVolume24h: 100,
+    minVolume24h: 0,
     minDepthShares: 10,
     priceBand: [0.10, 0.90] as [number, number],
     minHoursToResolution: 12,

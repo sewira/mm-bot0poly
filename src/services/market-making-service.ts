@@ -526,6 +526,8 @@ export class MarketMakingService extends EventEmitter {
       active: true,
       closed: false,
       limit: 200,
+      order: 'volume24hr',
+      ascending: false,
     });
 
     this.log(`Scanning ${markets.length} active markets...`);
