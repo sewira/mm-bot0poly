@@ -155,7 +155,7 @@ let CONFIG = {
     requoteThresholdTicks: 1,
     maxUnrealizedLossPct: 0.10,
     staleFeedMs: 30000,  // 30s — low-volume markets don't update every second
-    maxMarkets: 10,
+    maxMarkets: 15,
   },
 
   dryRun: process.env.DRY_RUN !== 'false',
