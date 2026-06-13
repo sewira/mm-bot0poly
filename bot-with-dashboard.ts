@@ -151,7 +151,7 @@ let CONFIG = {
     skewWidth: 0.02,
     orderSize: 10,
     maxInventoryShares: 50,
-    maxGrossExposureUsd: 200,
+    maxGrossExposureUsd: 50,
     requoteThresholdTicks: 1,
     maxUnrealizedLossPct: 0.10,
     staleFeedMs: 30000,  // 30s — low-volume markets don't update every second
@@ -876,8 +876,8 @@ let swapService: SwapService | null = null;
 async function updateBalances() {
   if (CONFIG.dryRun) {
     // SIMULATION: Mock balances
-    // Base 10,000 + whatever PnL we've made in this session
-    state.usdcEBalance = 10000 + state.totalPnL;
+    // Base $100 + whatever PnL we've made in this session
+    state.usdcEBalance = 100 + state.totalPnL;
     state.maticBalance = 100;
 
     // Only verify once/log sparsely
@@ -1416,7 +1416,7 @@ async function main() {
       trades: 0,
       totalVolume: 0,
     };
-    log('INFO', '📝 Paper Trading Activated: Simulating trades with $250 initial capital');
+    log('INFO', '📝 Paper Trading Activated: Simulating trades with $100 initial capital');
     updateDashboard();
   }
 
