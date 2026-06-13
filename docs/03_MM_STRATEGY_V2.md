@@ -1,6 +1,6 @@
 # Market Making Strategy v2 — The One Book
 
-**Status:** This supersedes the quoting logic in `01_MARKET_MAKING_SPEC.md`. Market selection, risk caps, and validation gates from the original spec and `02_VALIDATION_AND_TESTING.md` remain in force. Everything here is pre-validation design — no number in this file is trusted until the dry-run says so.
+**Status: DRY-RUN (paper, $100 capital).** First results: 7 fills / 17h, $0.10 gross, negative drift on all fills. This supersedes the quoting logic in `01_MARKET_MAKING_SPEC.md`. Market selection, risk caps, and validation gates from the original spec and `02_VALIDATION_AND_TESTING.md` remain in force. Everything here is pre-validation design — no number in this file is trusted until the dry-run says so.
 
 **Thesis:** Be the patient, subsidized liquidity provider on markets nobody is fighting over. The edge is venue-paid (maker rebates + fee-free categories) plus spread capture from benign retail flow. You win by *selection and survival*, not speed or cleverness.
 
@@ -26,9 +26,9 @@ Quote only markets passing ALL:
 
 | Filter | Rule |
 |---|---|
-| Category | geopolitics (fee-free) > finance (50% maker rebate) > politics/sports/economics (25% rebate each) > culture/weather/other (25% rebate). Never crypto (20% rebate, but max fee + toxic flow), never breaking-news. |
+| Category | geopolitics (fee-free) > finance/politics/sports/economics (25% maker rebate each) > culture/weather/other (25% rebate). Never crypto (20% rebate, max fee + toxic flow), never breaking-news. |
 | Liquidity | 24h volume ≥ `minVolume24h`; depth both sides ≥ `minDepthShares` |
-| Price band | mid in [0.20, 0.80]; tighten to [0.30, 0.70] inside 24h to resolution |
+| Price band | mid in [`priceBand`] (currently [0.10, 0.90] in config); tighten to [0.30, 0.70] inside 24h to resolution |
 | Time to resolution | ≥ `minHoursToResolution` (12h), with sloped spread widening inside 48h (§4.4) |
 | Toxicity | rolling fill-to-mark drift ≥ 0 after warmup |
 | Grandfathering | Only markets deployed on or after March 30, 2026 carry V2 fees/rebates. Pre-existing markets have no taker fees and no maker rebates — fee-free but also rebate-free. Filter accordingly: a "finance" market from January 2026 earns zero rebate. |
@@ -87,7 +87,7 @@ Binaries have two clocks: volatility now, and jump-to-resolution later. The 12h 
 
 ### 3.5 Rebate-aware spread floor (per category)
 
-Break-even spread differs by category. Every fee-bearing category now pays a maker rebate (Finance 50%, Crypto 20%, all others 25%), so your per-fill income is spread/2 + rebate. The profitable floor is *tighter* in high-rebate categories than in fee-free geopolitics (where there is no rebate at all, only spread). Compute `minSpreadTicks` per category from the live fee formula + rebate share and quote down to it only where the rebate supports it. This lets you sit inside lazier competitors who use one floor everywhere — a structural advantage the venue is paying you to take. (Fee Structure V2 rates, verified 2026-06-10; see `src/utils/fee-utils.ts` for the map.)
+Break-even spread differs by category. Every fee-bearing category now pays a maker rebate (all non-crypto 25%, Crypto 20%), so your per-fill income is spread/2 + rebate. The profitable floor is *tighter* in rebate categories than in fee-free geopolitics (where there is no rebate at all, only spread). Compute `minSpreadTicks` per category from the live fee formula + rebate share and quote down to it only where the rebate supports it. This lets you sit inside lazier competitors who use one floor everywhere — a structural advantage the venue is paying you to take. (Fee Structure V2 rates, verified 2026-06-13; see `src/utils/fee-utils.ts` for the map. **Note:** Finance rebate was 50% at initial V2 launch but current Polymarket docs show 25% as of 2026-06-13 -- confirm via API before relying on any Finance-specific advantage.)
 
 ### 3.6 Queue-position awareness
 
@@ -125,7 +125,7 @@ marketMaking: {
   categories: string[];              // ['geopolitics','finance','politics']
   minVolume24h: number;
   minDepthShares: number;
-  priceBand: [number, number];       // [0.20, 0.80]; auto-tighten near expiry
+  priceBand: [number, number];       // [0.10, 0.90] (widened for dry-run); auto-tighten near expiry
   minHoursToResolution: number;      // 12
   // quoting
   baseHalfSpreadTicks: number;
@@ -264,13 +264,18 @@ No stage skipping. Each gate is binary — partial green is red.
 - Realized rebates materially below model → the subsidy may be changing; halt scaling, re-read the fee page.
 - **Regime kill:** Polymarket changes maker rebates or adds fees to current fee-free categories → halt everything, re-derive per-category floors, re-validate from the dry-run stage. The entire edge is a policy choice the venue can revoke.
 
+**Regime notes (2026-06-13):**
+- Exchange V2 (2026-04-28): collateral migrated from USDC.e to pUSD (1:1 USDC-backed ERC-20). Maker rebates now paid in pUSD. Code still references USDC.e in swap-service / dip-arb-service / onchain-service -- needs migration review.
+- Taker Rebate Program (2026-05-28): tiered taker rebates (Bronze $2k wV through Obsidian $10M wV, up to 50% taker fee rebate). Does not directly affect our maker-side strategy but changes counterparty economics -- high-tier takers pay less effective fee, which may reduce the maker rebate pool. Monitor via realized-vs-modeled rebate check.
+- Finance maker rebate: Polymarket docs as of 2026-06-13 show 25%, not 50%. If confirmed, Finance loses its rebate advantage over other categories. Verify via the rebate API endpoint before any category-priority decisions.
+
 ---
 
 ## 10. What comes after — the decision tree
 
 **If pilot is green (drift ≥ 0 on ≥ 5 markets, net edge positive):**
 1. Scale capital in steps (×2–3 per step, monthly), watching for *self-impact*: if your own quotes become the book, spread capture falls. Expect a capacity ceiling around $10–30k deployed — these books are thin. Hitting the ceiling is success, not failure.
-2. Add finance-category markets (50% rebate) with tighter floors, then politics/sports/economics (25% rebate each).
+2. Add finance/politics/sports/economics markets (all 25% rebate) with tighter floors.
 3. Add the convergence satellite (favorites 0.92–0.97, maker entry, per-cluster caps) — it reuses the same instrumentation and diversifies the PnL stream.
 4. Turn on the Smart Money selection feature and measure whether it actually predicts lower toxicity (test in `02 §4`); drop it if it doesn't.
 5. Only then revisit maker-only binary arb as a low-expectation add-on.

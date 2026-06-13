@@ -112,6 +112,10 @@ export interface MarketMakingConfig {
   // Operational
   dryRun?: boolean;
   maxMarkets?: number;
+  /** Replace markets with no fills after this duration (ms). 0 = disabled. Default: 2h. */
+  inactiveRotationMs?: number;
+  /** How often to check for inactive markets (ms). Default: 30min. */
+  rotationCheckIntervalMs?: number;
 
   // Record system (03 SS8.1) — regime + stage tag every snapshot/fill row
   /** Versioned regime string, e.g. "2026-dynamic-v1". Increment on any fee/rebate change. */
@@ -263,6 +267,10 @@ export class MarketMakingService extends EventEmitter {
   private configHash: string = '';
   private snapshotTimer: ReturnType<typeof setTimeout> | null = null;
 
+  // Market rotation — replace inactive markets
+  private rotationTimer: ReturnType<typeof setInterval> | null = null;
+  private isRotating = false;
+
   private stats = {
     quotesPosted: 0,
     fills: 0,
@@ -294,8 +302,8 @@ export class MarketMakingService extends EventEmitter {
         // Rebate-aware floors (03 SS3.5): higher rebate => tighter floor allowed.
         // Geopolitics: fee-free, no rebate => widest floor (spread-only income).
         geopolitics: 3,
-        // Finance: 50% rebate => tightest floor (most subsidy).
-        finance: 1,
+        // Finance: 25% rebate (same as other non-crypto categories).
+        finance: 2,
         // Politics/Sports/Tech/Economics/Culture/Weather/Mentions: 25% rebate.
         politics: 2,
         sports: 2,
@@ -341,6 +349,8 @@ export class MarketMakingService extends EventEmitter {
       // Operational
       dryRun: config.dryRun ?? true,
       maxMarkets: config.maxMarkets ?? 3,
+      inactiveRotationMs: config.inactiveRotationMs ?? 2 * 60 * 60 * 1000,  // 2 hours
+      rotationCheckIntervalMs: config.rotationCheckIntervalMs ?? 30 * 60 * 1000,  // 30 minutes
       // Record system (03 SS8.1)
       regime: config.regime ?? '2026-dynamic-v1',
       stage: config.stage ?? 'dry-run',
@@ -438,7 +448,16 @@ export class MarketMakingService extends EventEmitter {
       }
     });
 
-    // 7. Log incident-level entry when armed for live trading (implementation rule 5)
+    // 7. Start market rotation timer (replace inactive markets)
+    if (this.config.inactiveRotationMs > 0) {
+      this.rotationTimer = setInterval(
+        () => this.rotateInactiveMarkets(),
+        this.config.rotationCheckIntervalMs,
+      );
+      this.log(`Market rotation enabled: replace after ${Math.round(this.config.inactiveRotationMs / 60000)}min inactive, check every ${Math.round(this.config.rotationCheckIntervalMs / 60000)}min`);
+    }
+
+    // 8. Log incident-level entry when armed for live trading (implementation rule 5)
     if (!this.config.dryRun) {
       this.logger.logIncident({
         ts: Date.now(),
@@ -483,6 +502,12 @@ export class MarketMakingService extends EventEmitter {
 
     // Stop stale-feed guard
     this.stopStaleFeedGuard();
+
+    // Stop market rotation timer
+    if (this.rotationTimer) {
+      clearInterval(this.rotationTimer);
+      this.rotationTimer = null;
+    }
 
     // Clear fill-to-mark timers
     for (const timers of this.fillTimers.values()) {
@@ -653,6 +678,95 @@ export class MarketMakingService extends EventEmitter {
     const selected = candidates.slice(0, this.config.maxMarkets);
 
     return selected.map(c => this.createMarketState(c));
+  }
+
+  // ============================================================================
+  // Market Rotation — replace inactive markets
+  // ============================================================================
+
+  private async rotateInactiveMarkets(): Promise<void> {
+    if (!this.isRunning || this.isRotating) return;
+    this.isRotating = true;
+
+    try {
+      const now = Date.now();
+      const inactiveThreshold = this.config.inactiveRotationMs;
+      const activeConditionIds = new Set(this.markets.keys());
+
+      // Find markets that have been inactive (no fills) for too long
+      const inactiveMarkets: MMMarketState[] = [];
+      for (const market of this.markets.values()) {
+        if (market.isBlacklisted) continue;  // blacklisted markets have their own removal logic
+        const lastFill = this.lastFillTime.get(market.conditionId) ?? this.stats.startTime;
+        if (now - lastFill > inactiveThreshold && market.totalFills === 0) {
+          inactiveMarkets.push(market);
+        }
+      }
+
+      if (inactiveMarkets.length === 0) {
+        return;
+      }
+
+      this.log(`ROTATION: ${inactiveMarkets.length} market(s) inactive for >${Math.round(inactiveThreshold / 60000)}min with 0 fills — scanning for replacements`);
+
+      // Run fresh selection scan
+      const freshCandidates = await this.selectMarkets();
+      // Filter out markets we already have (active ones that aren't being rotated)
+      const inactiveIds = new Set(inactiveMarkets.map(m => m.conditionId));
+      const replacements = freshCandidates.filter(
+        m => !activeConditionIds.has(m.conditionId) || inactiveIds.has(m.conditionId),
+      );
+
+      // Only keep genuinely new markets
+      const newMarkets = replacements.filter(m => !activeConditionIds.has(m.conditionId));
+
+      if (newMarkets.length === 0) {
+        this.log('ROTATION: No new replacement markets found — keeping current markets');
+        return;
+      }
+
+      // Remove inactive markets (up to the number of replacements available)
+      const toRemove = inactiveMarkets.slice(0, newMarkets.length);
+      for (const market of toRemove) {
+        // Cancel any resting orders
+        await this.cancelMarketOrders(market);
+        market.quotingActive = false;
+
+        // Unsubscribe from orderbook
+        const sub = this.marketSubscriptions.get(market.conditionId);
+        if (sub) {
+          sub.unsubscribe();
+          this.marketSubscriptions.delete(market.conditionId);
+        }
+
+        // Remove from tracking
+        this.markets.delete(market.conditionId);
+        this.lastFillTime.delete(market.conditionId);
+        this.log(`ROTATION: Removed inactive market: ${market.name}`);
+      }
+
+      // Add new markets
+      const toAdd = newMarkets.slice(0, toRemove.length);
+      for (const market of toAdd) {
+        this.markets.set(market.conditionId, market);
+
+        // Subscribe to orderbook
+        const tokenIds = [market.yesTokenId, market.noTokenId];
+        const sub = this.realtimeService.subscribeMarkets(tokenIds, {
+          onOrderbook: (book: OrderbookSnapshot) => this.handleOrderbookUpdate(book),
+        });
+        this.marketSubscriptions.set(market.conditionId, sub);
+        market.quotingActive = true;
+        this.log(`ROTATION: Added new market: ${market.name} [${market.feeCategory}]`);
+      }
+
+      this.stats.marketsQuoted = this.markets.size;
+      this.emit('marketRotated', { removed: toRemove.length, added: toAdd.length });
+    } catch (err) {
+      this.log(`ROTATION: Error during market rotation: ${err}`);
+    } finally {
+      this.isRotating = false;
+    }
   }
 
   private createMarketState(candidate: {

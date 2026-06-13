@@ -18,15 +18,15 @@ fee = C × feeRate × p × (1 − p)        # peaks at p = 0.50
 | Crypto | 0.07 | 20% | $1.75 | highest fee; designed to kill latency arb |
 | Economics | 0.05 | 25% | $1.25 | |
 | Culture/Weather/Other | 0.05 | 25% | $1.25 | |
-| Finance/Politics/Tech/Mentions | 0.04 | 25% (Finance: **50%**) | $1.00 | Finance has best rebate |
+| Finance/Politics/Tech/Mentions | 0.04 | 25% | $1.00 | (Finance was 50% at V2 launch; current docs show 25% as of 2026-06-13 -- verify) |
 | Sports | 0.03 | 25% | $0.75 | |
 | **Geopolitics** | **0.00 (fee-free)** | N/A | $0.00 | trade the spread tax-free |
 
 > **Grandfathering:** fees only apply to markets deployed on or after the activation date (March 30, 2026). Pre-existing markets are unaffected.
-> Confirm exact current rates against Polymarket's official fee page before sizing. These move. (Fee Structure V2, verified 2026-06-10.)
+> Confirm exact current rates against Polymarket's official fee page before sizing. These move. (Fee Structure V2, verified 2026-06-13. Note: Exchange V2 migrated to pUSD collateral on 2026-04-28; Taker Rebate Program launched 2026-05-28.)
 
 **Two consequences that drive the whole plan:**
-1. **Makers pay zero and get paid rebates on every fee-bearing category.** Takers pay. So every market order you fire is paying a fee a limit order would *earn*. Flip to maker posture everywhere possible. Finance (50% rebate) is the most generous; all other fee-bearing categories pay 25% (crypto: 20%).
+1. **Makers pay zero and get paid rebates on every fee-bearing category.** Takers pay. So every market order you fire is paying a fee a limit order would *earn*. Flip to maker posture everywhere possible. All non-crypto fee-bearing categories pay 25% maker rebate; crypto pays 20%. (Rates verified 2026-06-13.)
 2. **Fees are highest exactly where your two most-built strategies live** (crypto, near $0.50). The house engineered this to kill latency arbitrage. You are the prey.
 
 ---
@@ -68,8 +68,8 @@ fee = C × feeRate × p × (1 − p)        # peaks at p = 0.50
 
 ## 4. What you actually trade
 
-- **Primary capital → market making** on **fee-free (geopolitics)** and **high-rebate (finance, 50%)** markets, plus deep liquid politics/sports.
-- **Quote band only in 0.20–0.80.** Never hold inventory into the 0/1 tails — that's where binaries jump on resolution and gut MM books.
+- **Primary capital → market making** on **fee-free (geopolitics)** and **rebate-bearing (finance/politics/sports, 25%)** markets.
+- **Quote band per config `priceBand`** (currently [0.10, 0.90] for dry-run exploration; see 03 §2). Never hold inventory into the 0/1 tails — that's where binaries jump on resolution and gut MM books.
 - **Avoid crypto and breaking-news markets entirely** for MM. Toxic flow + max fees.
 - **Satellite → convergence** on favorites at 0.92–0.97 within days of resolution, maker orders, diversified across *uncorrelated* events.
 
@@ -103,7 +103,7 @@ Measure per-market, rank constantly, route capital by it. This single number dec
 - [ ] Convert Smart Money to a market-selection feature.
 
 **Phase 3 — Scale what survives (week 6+).**
-- [ ] Add finance (50% rebate) + liquid politics/sports/economics (25% rebate each) once fill-to-mark is positive.
+- [ ] Add finance/politics/sports/economics (all 25% rebate) once fill-to-mark is positive.
 - [ ] Add convergence satellite with event-cluster exposure caps.
 - [ ] Only then revisit multi-outcome arb.
 

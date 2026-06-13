@@ -11,7 +11,7 @@ description: >
 
 # Polymarket Strategy Knowledge
 
-**Current stage: pre-validation.** Nothing live. (mm-librarian updates this line on gate transitions.)
+**Current stage: dry-run (paper, $100 capital).** First results: 7 fills / 17h, $0.10 gross, negative drift on all fills. (mm-librarian updates this line on gate transitions.)
 
 The single organizing idea: this is **one business — be the patient, subsidized liquidity
 provider on markets nobody is fighting over.** Edge that survives this venue is maker-side
@@ -39,11 +39,15 @@ fee = C × feeRate × p × (1 − p)        # peaks at share price p = 0.50
 Reference rates (Fee Structure V2, effective 2026-03-30 — ALWAYS confirm current values
 on Polymarket's official fee page before any sizing decision; rates change):
 Crypto feeRate 0.07 (20% maker rebate) > Economics/Culture/Weather/Other 0.05 (25%)
-> Finance/Politics/Tech/Mentions 0.04 (25%; Finance: **50%**) > Sports 0.03 (25%)
+> Finance/Politics/Tech/Mentions 0.04 (25%) > Sports 0.03 (25%)
 > **Geopolitics 0.00 (fee-free, no rebate)**. Makers pay 0 taker fee everywhere.
-**Every fee-bearing category now pays a maker rebate** (not just Finance).
+**Every fee-bearing category now pays a maker rebate** -- all non-crypto at 25%, crypto at 20%.
 **Grandfathering:** fees/rebates apply only to markets deployed on or after the activation
-date (2026-03-30); pre-existing markets are unaffected. (Rates verified 2026-06-10.)
+date (2026-03-30); pre-existing markets are unaffected. (Rates verified 2026-06-13.)
+**Exchange V2 (2026-04-28):** collateral migrated from USDC.e to pUSD (1:1 USDC-backed).
+Maker rebates paid in pUSD. **Taker Rebate Program (2026-05-28):** tiered taker rebates
+(up to 50% at Obsidian tier) -- does not directly affect maker strategy but may reduce
+the maker rebate pool. Monitor via realized-vs-modeled rebate check.
 Gas on Polygon approx $0.003–0.005/tx.
 
 Implications: (1) every market order pays a fee a limit order would earn; (2) fees peak
@@ -72,16 +76,17 @@ If you can't, the edge is probably noise.
 a higher one is unmeasured:**
 selection & schedule > event-day survival > fill quality > quote placement > spread math.
 
-**Selection (most of the edge):** fee-free geopolitics > finance (50% rebate) > liquid
-politics/sports/economics (25% rebate each). Never crypto, never breaking-news. Price band per doc; tighten near
+**Selection (most of the edge):** fee-free geopolitics > finance/politics/sports/economics
+(all 25% rebate). Never crypto, never breaking-news. Price band per doc; tighten near
 expiry. Per-market per-hour drift schedules once data exists. Capital allocated
 continuously by edgeScore, not binary blacklists (blacklist remains the hard floor).
 
 **Quoting:** center on **microprice** (depth-weighted), not mid. **Convex** inventory
 skew (gentle near flat, aggressive near cap). **Asymmetric size** as the second
 flattening lever. Per-category **rebate-aware spread floors** (every fee-bearing category
-has a rebate; rebate markets support tighter floors). Queue-position awareness: deep-in-queue at an eroding level → cancel;
-prefer fronting a new tick over joining a crowd.
+has a rebate at 25% or 20%; rebate markets support tighter floors). Queue-position
+awareness: deep-in-queue at an eroding level → cancel; prefer fronting a new tick
+over joining a crowd.
 
 **Requote = event-driven** (book tick / off-top / inventory band), never a timer.
 **News circuit breaker:** mid jump beyond threshold within window → cancelAll + cooldown.
@@ -134,7 +139,7 @@ tune — the problem is the flow, not the math (03 §10).
 
 ## 7. Key files in this repo
 
-- `bot-with-dashboard.ts` — strategy setup + `simulateRealisticTrade()` + dashboard
+- `bot-with-dashboard.ts` — strategy setup + `simulateRealisticTrade()` + dashboard; SDK init: `new PolymarketSDK()` + `initialize()` (not `create()`); ws-live-data only connected when non-MM strategies enabled
 - `src/services/realtime-service-v2.ts` — WS feeds + recording path
 - `src/services/trading-service.ts` — `createLimitOrder` / `cancelAll` / `getOpenOrders`
 - `src/services/market-service.ts` — `getProcessedOrderbook`

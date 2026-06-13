@@ -42,11 +42,14 @@ No linter or formatter is configured.
 
 **Entry point**: `src/index.ts` — exports everything. `PolymarketSDK` is the main facade class.
 
-**Initialization pattern**:
+**Initialization pattern** (bot-with-dashboard.ts uses this):
 ```typescript
-const sdk = await PolymarketSDK.create({ privateKey: '0x...' });
-// or: new PolymarketSDK(config) → await sdk.start()
+const sdk = new PolymarketSDK({ privateKey: '0x...' });
+await sdk.initialize();
+// ws-live-data connected separately only when non-MM strategies enabled:
+// sdk.connect(); await sdk.waitForConnection(10000);
 ```
+Legacy: `await PolymarketSDK.create(config)` still works (calls initialize + connect internally).
 
 **API Clients** (`src/clients/`): Low-level HTTP/GraphQL wrappers.
 - `data-api.ts` — Polymarket Data API (positions, activity, trades, leaderboard)

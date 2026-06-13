@@ -68,7 +68,7 @@ export const MAKER_REBATE_SHARES: Record<FeeCategory, number> = {
   culture:     0.25,
   weather:     0.25,
   mentions:    0.25,
-  finance:     0.50,
+  finance:     0.25,
   politics:    0.25,
   tech:        0.25,
   sports:      0.25,

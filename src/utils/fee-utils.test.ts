@@ -93,8 +93,8 @@ describe('Fee Utilities', () => {
   });
 
   describe('estimateMakerRebate', () => {
-    it('finance rebate is 50% of taker fees', () => {
-      expect(estimateMakerRebate(10, 'finance')).toBeCloseTo(5.0, 10);
+    it('finance rebate is 25% of taker fees', () => {
+      expect(estimateMakerRebate(10, 'finance')).toBeCloseTo(2.5, 10);
     });
 
     it('crypto rebate is 20% of taker fees', () => {

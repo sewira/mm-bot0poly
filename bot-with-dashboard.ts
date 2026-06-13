@@ -142,9 +142,9 @@ let CONFIG = {
     enabled: process.env.MM_ENABLED === 'true',
     categories: ['geopolitics', 'finance', 'politics', 'sports'] as FeeCategory[],
     excludeCategories: ['crypto'] as FeeCategory[],
-    minVolume24h: 0,
+    minVolume24h: 5000,
     minDepthShares: 10,
-    priceBand: [0.10, 0.90] as [number, number],
+    priceBand: [0.20, 0.80] as [number, number],
     minHoursToResolution: 12,
     baseHalfSpreadTicks: 1,
     minSpreadTicks: 1,
@@ -155,7 +155,9 @@ let CONFIG = {
     requoteThresholdTicks: 1,
     maxUnrealizedLossPct: 0.10,
     staleFeedMs: 30000,  // 30s — low-volume markets don't update every second
-    maxMarkets: 15,
+    maxMarkets: 5,
+    inactiveRotationMs: 2 * 60 * 60 * 1000,  // 2 hours — replace markets with 0 fills after this
+    rotationCheckIntervalMs: 30 * 60 * 1000,  // check every 30 minutes
   },
 
   dryRun: process.env.DRY_RUN !== 'false',
