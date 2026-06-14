@@ -693,12 +693,30 @@ export class MarketMakingService extends EventEmitter {
       const inactiveThreshold = this.config.inactiveRotationMs;
       const activeConditionIds = new Set(this.markets.keys());
 
-      // Find markets that have been inactive (no fills) for too long
+      // Find markets that should be rotated out:
+      // 1. No fills for > inactiveThreshold (regardless of total fill count)
+      // 2. Blacklisted/blocked markets (circuit breaker permanently tripped)
+      // 3. Price moved out of band (e.g. resolved markets near 0 or 1)
       const inactiveMarkets: MMMarketState[] = [];
       for (const market of this.markets.values()) {
-        if (market.isBlacklisted) continue;  // blacklisted markets have their own removal logic
         const lastFill = this.lastFillTime.get(market.conditionId) ?? this.stats.startTime;
-        if (now - lastFill > inactiveThreshold && market.totalFills === 0) {
+        const timeSinceLastFill = now - lastFill;
+
+        // Blacklisted markets are dead weight — always rotate
+        if (market.isBlacklisted) {
+          inactiveMarkets.push(market);
+          continue;
+        }
+
+        // Price moved out of band (resolved or near-resolved)
+        const [lo, hi] = this.config.priceBand;
+        if (market.mid > 0 && (market.mid < lo || market.mid > hi)) {
+          inactiveMarkets.push(market);
+          continue;
+        }
+
+        // No recent fills
+        if (timeSinceLastFill > inactiveThreshold) {
           inactiveMarkets.push(market);
         }
       }
@@ -707,7 +725,13 @@ export class MarketMakingService extends EventEmitter {
         return;
       }
 
-      this.log(`ROTATION: ${inactiveMarkets.length} market(s) inactive for >${Math.round(inactiveThreshold / 60000)}min with 0 fills — scanning for replacements`);
+      const reasons = inactiveMarkets.map(m => {
+        if (m.isBlacklisted) return `${m.name} (blocked)`;
+        const [lo, hi] = this.config.priceBand;
+        if (m.mid > 0 && (m.mid < lo || m.mid > hi)) return `${m.name} (out of band: ${m.mid})`;
+        return `${m.name} (no fills for >${Math.round(inactiveThreshold / 60000)}min)`;
+      });
+      this.log(`ROTATION: ${inactiveMarkets.length} market(s) eligible for replacement: ${reasons.join(', ')}`);
 
       // Run fresh selection scan
       const freshCandidates = await this.selectMarkets();
